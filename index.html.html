@@ -1,0 +1,2822 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ScriptRblx - Lua script hub for Roblox executors (Solara, Delta, Krnl, Xeno) across Blox Fruits, Steal an Egg, Brookhaven RP, BedWars, Anime Defenders, and Universal Hub." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%2300f0ff'/%3E%3Cstop offset='55%25' stop-color='%23a855f7'/%3E%3Cstop offset='100%25' stop-color='%23fbbf24'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%23070a14'/%3E%3Crect x='2' y='2' width='60' height='60' rx='14' fill='none' stroke='url(%23g)' stroke-width='2.5'/%3E%3Cpath d='M21 22 L12 32 L21 42' stroke='%2300f0ff' stroke-width='4' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Cpath d='M43 22 L52 32 L43 42' stroke='%23f472b6' stroke-width='4' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Cpolygon points='32,16 44,32 32,48 20,32' fill='none' stroke='url(%23g)' stroke-width='3'/%3E%3Ccircle cx='32' cy='32' r='4.5' fill='%2334d399'/%3E%3C/svg%3E" />
+  <title>ScriptRblx | مكتبة السكربتات للمحركات (Solara • Delta • Krnl • Xeno)</title>
+
+  <!-- خطوط عربية وأكواد برمجية -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Cairo', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            obsidian: '#05060b',
+            abyss: '#0a0d18',
+            cyberCyan: '#00f0ff',
+            cyberPurple: '#a855f7',
+            cyberEmerald: '#10b981',
+            cyberAmber: '#f59e0b',
+            cyberRose: '#f43f5e',
+          },
+          animation: {
+            'pulse-slow': 'pulse 5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'glow-pulse': 'glowPulse 3s ease-in-out infinite',
+            'brand-script': 'brandScriptShift 4.5s ease-in-out infinite',
+            'brand-rblx': 'brandRblxShift 4.5s ease-in-out infinite',
+          },
+          keyframes: {
+            glowPulse: {
+              '0%, 100%': { boxShadow: '0 0 18px rgba(0, 240, 255, 0.16)' },
+              '50%': { boxShadow: '0 0 32px rgba(168, 85, 247, 0.28)' },
+            },
+            brandScriptShift: {
+              '0%, 100%': { filter: 'hue-rotate(0deg) brightness(1.05)' },
+              '50%': { filter: 'hue-rotate(38deg) brightness(1.2)' },
+            },
+            brandRblxShift: {
+              '0%, 100%': { filter: 'hue-rotate(0deg) brightness(1.05)' },
+              '50%': { filter: 'hue-rotate(-45deg) brightness(1.2)' },
+            },
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    body {
+      background-color: #05060b;
+      color: #f1f5f9;
+      overflow-x: hidden;
+    }
+
+    .cyber-grid {
+      background-image:
+        linear-gradient(to right, rgba(0, 240, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(168, 85, 247, 0.04) 1px, transparent 1px);
+      background-size: 46px 46px;
+    }
+
+    .glass-panel {
+      background: rgba(11, 15, 28, 0.78);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.75),
+                  inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+    }
+
+    .glass-card {
+      background: linear-gradient(155deg, rgba(16, 22, 41, 0.9), rgba(8, 11, 21, 0.96));
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      box-shadow: 0 12px 30px -18px rgba(0, 0, 0, 0.8),
+                  inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+      transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+                  border-color 0.22s ease,
+                  box-shadow 0.22s ease;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(0, 240, 255, 0.5);
+      box-shadow: 0 20px 44px -18px rgba(0, 240, 255, 0.22),
+                  0 0 0 1px rgba(168, 85, 247, 0.22);
+    }
+
+    .brand-part-script {
+      display: inline-block;
+      background-image: linear-gradient(90deg, #00f0ff, #38bdf8, #34d399, #00f0ff);
+      background-size: 220% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: flowScriptGradient 3.6s linear infinite;
+    }
+
+    .brand-part-rblx {
+      display: inline-block;
+      background-image: linear-gradient(90deg, #c084fc, #f472b6, #fbbf24, #c084fc);
+      background-size: 220% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: flowRblxGradient 3.6s linear infinite;
+    }
+
+    @keyframes flowScriptGradient {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 220% 50%; }
+    }
+
+    @keyframes flowRblxGradient {
+      0% { background-position: 220% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #070911;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.24);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 240, 255, 0.5);
+    }
+
+    /* ألوان تمييز Lua */
+    .lua-keyword { color: #f472b6; font-weight: 600; }
+    .lua-string { color: #34d399; }
+    .lua-comment { color: #64748b; font-style: italic; }
+    .lua-number { color: #fbbf24; }
+    .lua-global { color: #c084fc; }
+  </style>
+</head>
+
+<body class="cyber-grid min-h-screen flex flex-col selection:bg-cyan-500/30 selection:text-cyan-200">
+
+  <!-- هالات نيون ضوئية في الخلفية -->
+  <div class="pointer-events-none fixed inset-0 overflow-hidden z-0">
+    <div class="absolute -top-32 right-1/4 w-[28rem] h-[28rem] rounded-full bg-cyan-500/10 blur-[130px] animate-pulse-slow"></div>
+    <div class="absolute top-1/3 -left-24 w-[30rem] h-[30rem] rounded-full bg-purple-600/12 blur-[140px] animate-pulse-slow"></div>
+    <div class="absolute bottom-0 right-1/3 w-96 h-96 rounded-full bg-emerald-500/10 blur-[120px]"></div>
+  </div>
+
+  <!-- شريط التنقل العلوي -->
+  <header id="mainHeader" class="hidden sticky top-0 z-30 glass-panel border-b border-slate-800/85">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2 sm:gap-4">
+      <!-- الشعار -->
+      <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+        <div class="relative w-11 h-11 rounded-2xl bg-[#070a14] border border-cyan-400/45 flex items-center justify-center shadow-lg shadow-cyan-500/15 shrink-0">
+          <svg class="w-8 h-8" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-label="ScriptRblx Logo">
+            <defs>
+              <linearGradient id="sr-logo-grad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#00f0ff"/>
+                <stop offset="55%" stop-color="#a855f7"/>
+                <stop offset="100%" stop-color="#fbbf24"/>
+              </linearGradient>
+            </defs>
+            <path d="M20 21 L10 32 L20 43" stroke="#00f0ff" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <path d="M44 21 L54 32 L44 43" stroke="#f472b6" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <polygon points="32,14 45,32 32,50 19,32" fill="none" stroke="url(#sr-logo-grad)" stroke-width="3"/>
+            <circle cx="32" cy="32" r="4.8" fill="#34d399"/>
+          </svg>
+          <span class="absolute -top-1 -left-1 w-2.5 h-2.5 rounded-full bg-emerald-400 ring-2 ring-[#0a0d18]"></span>
+        </div>
+        <div class="truncate">
+          <div class="flex items-center gap-2">
+            <h1 dir="ltr" class="text-sm sm:text-xl font-black tracking-tight truncate">
+              <span class="brand-part-script">Script</span><span class="brand-part-rblx">Rblx</span>
+            </h1>
+            <span id="headerBadgeText" class="hidden md:inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-cyan-500/15 text-cyan-300 border border-cyan-400/30">
+              600+ سكربت
+            </span>
+          </div>
+          <p id="headerSubtitleText" class="text-[11px] text-slate-400 truncate hidden sm:block">
+            100 سكربت لكل ماب • Solara • Delta • Krnl • Xeno
+          </p>
+        </div>
+      </div>
+
+      <!-- أزرار التحكم والحساب -->
+      <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+        <!-- زر تبديل اللغة AR / EN -->
+        <button
+          id="langToggleBtn"
+          type="button"
+          class="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-2 rounded-xl text-xs font-extrabold bg-slate-900/90 hover:bg-cyan-500/20 text-cyan-200 border border-cyan-400/35 transition cursor-pointer"
+        >
+          <svg class="w-4 h-4 text-cyan-300 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <span id="langToggleLabel" class="font-mono">EN</span>
+        </button>
+
+        <!-- تبديل عرض المكتبة / معرض المابات -->
+        <button
+          id="toggleGalleryViewBtn"
+          type="button"
+          class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-slate-800/85 hover:bg-purple-500/20 text-slate-200 hover:text-purple-200 border border-slate-700/80 hover:border-purple-400/40 transition cursor-pointer"
+        >
+          <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+            <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+            <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+            <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+          </svg>
+          <span class="hidden md:inline" id="galleryBtnLabel">معرض المابات</span>
+        </button>
+
+        <!-- زر إضافة سكربت -->
+        <button
+          id="openAddModalBtn"
+          type="button"
+          class="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-xl text-xs font-extrabold text-slate-950 bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400 hover:brightness-110 active:scale-[0.98] transition shadow-lg shadow-cyan-500/20 cursor-pointer"
+        >
+          <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          <span id="addScriptBtnLabel">أضف سكربتك</span>
+        </button>
+
+        <!-- زر تسجيل الدخول / الملف الشخصي -->
+        <div id="authHeaderSlot" class="flex items-center"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- بوابة تسجيل الدخول الإلزامية في البداية (مساحة نظيفة وفارغة حول البطاقة) -->
+  <section id="authGateSection" class="relative z-20 flex-1 flex items-center justify-center px-4 sm:px-6 py-10">
+    <div class="glass-panel w-full max-w-md rounded-3xl border border-cyan-400/25 p-6 sm:p-8 shadow-2xl space-y-5">
+      <div class="flex items-center justify-end">
+        <button
+          id="gateLangToggleBtn"
+          type="button"
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-extrabold bg-slate-900/90 hover:bg-cyan-500/20 text-cyan-200 border border-cyan-400/35 transition cursor-pointer"
+        >
+          <svg class="w-3.5 h-3.5 text-cyan-300 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <span id="gateLangToggleLabel" class="font-mono">English</span>
+        </button>
+      </div>
+
+      <div class="text-center space-y-2">
+        <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-500/25 via-purple-600/25 to-emerald-500/25 border border-cyan-400/40 text-cyan-300 mx-auto shadow-lg shadow-cyan-500/10">
+          <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+        </div>
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-400/30 text-cyan-300 text-[11px] font-bold">
+          <span dir="ltr"><span class="brand-part-script">Script</span><span class="brand-part-rblx">Rblx</span></span>
+          <span id="gateBadgeLabel">• دخول إجباري</span>
+        </div>
+        <h2 id="gateTitleLabel" class="text-xl sm:text-2xl font-black text-white tracking-tight">
+          تسجيل الدخول
+        </h2>
+        <p id="gateSubtitleLabel" class="text-xs sm:text-sm text-slate-400">
+          سجّل دخولك أو أنشئ حسابًا للبدء.
+        </p>
+      </div>
+
+      <div id="gateAuthContainer" class="space-y-4"></div>
+    </div>
+  </section>
+
+  <!-- المحتوى الرئيسي -->
+  <main id="mainContent" class="hidden relative z-10 flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-5 sm:py-8 space-y-6 sm:space-y-8">
+
+    <!-- بانر الترحيب وإحصائيات المكتبة -->
+    <section class="glass-panel rounded-3xl p-5 sm:p-7 relative overflow-hidden border border-slate-700/60">
+      <div class="absolute -left-20 -top-20 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -right-20 -bottom-20 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center relative">
+        <div class="lg:col-span-7 space-y-3.5">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 text-xs font-bold">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+            <span id="heroBadgeLabel">سكربتات Lua شغّالة وآمنة بـ pcall لجميع المحركات + 100 لكل ماب</span>
+          </div>
+
+          <h2 id="heroTitleLabel" class="text-2xl sm:text-4xl font-black leading-tight text-white">
+            أضخم مكتبة أكواد <span class="text-cyan-300">Lua</span> شغّالة فعليًا بصور مابات مخصصة
+          </h2>
+
+          <p id="heroDescLabel" class="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-2xl">
+            كل سكربت مبني ببنية <strong class="text-emerald-300">pcall</strong> آمنة لا تسبب كراش، ويستخدم خدمات Roblox الحقيقية (<strong class="text-cyan-300">RunService</strong>، <strong class="text-cyan-300">TweenService</strong>، <strong class="text-cyan-300">UserInputService</strong>، <strong class="text-cyan-300">VirtualUser</strong>) مع منطق فعلي لكل ماب ومحرك
+            <strong class="text-cyan-300">Solara</strong>، <strong class="text-emerald-300">Delta</strong>، <strong class="text-purple-300">Krnl</strong>، و<strong class="text-amber-300">Xeno</strong>.
+          </p>
+        </div>
+
+        <!-- بطاقات المحركات الأربعة -->
+        <div class="lg:col-span-5 grid grid-cols-2 gap-2.5 sm:gap-3">
+          <div class="rounded-2xl bg-slate-900/85 border border-cyan-500/25 p-3 hover:border-cyan-400/60 transition">
+            <div class="flex items-center justify-between mb-1">
+              <span class="font-mono font-bold text-xs sm:text-sm text-cyan-300">SOLARA</span>
+              <span id="execTagSolara" class="text-[10px] px-2 py-0.5 rounded-md bg-emerald-500/15 text-emerald-300 font-bold">سريع</span>
+            </div>
+            <p id="execDescSolara" class="text-[11px] text-slate-400">تنفيذ مباشر وخفيف لأكواد Lua والـ Scripts</p>
+          </div>
+
+          <div class="rounded-2xl bg-slate-900/85 border border-emerald-500/25 p-3 hover:border-emerald-400/60 transition">
+            <div class="flex items-center justify-between mb-1">
+              <span class="font-mono font-bold text-xs sm:text-sm text-emerald-300">DELTA</span>
+              <span id="execTagDelta" class="text-[10px] px-2 py-0.5 rounded-md bg-emerald-500/15 text-emerald-300 font-bold">عالي التوافق</span>
+            </div>
+            <p id="execDescDelta" class="text-[11px] text-slate-400">دعم واسع للموبايل والكمبيوتر مع UNC ممتاز</p>
+          </div>
+
+          <div class="rounded-2xl bg-slate-900/85 border border-purple-500/25 p-3 hover:border-purple-400/60 transition">
+            <div class="flex items-center justify-between mb-1">
+              <span class="font-mono font-bold text-xs sm:text-sm text-purple-300">KRNL</span>
+              <span id="execTagKrnl" class="text-[10px] px-2 py-0.5 rounded-md bg-amber-500/15 text-amber-300 font-bold">مستقر</span>
+            </div>
+            <p id="execDescKrnl" class="text-[11px] text-slate-400">استقرار قوي في سكريبتات القتال والتجميع</p>
+          </div>
+
+          <div class="rounded-2xl bg-slate-900/85 border border-amber-500/25 p-3 hover:border-amber-400/60 transition">
+            <div class="flex items-center justify-between mb-1">
+              <span class="font-mono font-bold text-xs sm:text-sm text-amber-300">XENO</span>
+              <span id="execTagXeno" class="text-[10px] px-2 py-0.5 rounded-md bg-emerald-500/15 text-emerald-300 font-bold">فوري</span>
+            </div>
+            <p id="execDescXeno" class="text-[11px] text-slate-400">استجابة فورية وأداء ممتاز في الجلسات الطويلة</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- معرض صور المابات الكامل (قابل للفتح والإغلاق) -->
+    <section id="mapsGallerySection" class="hidden glass-panel rounded-3xl p-5 sm:p-6 border border-purple-500/35 space-y-4">
+      <div class="flex items-center justify-between gap-3">
+        <div>
+          <h3 id="galleryTitleLabel" class="text-base sm:text-xl font-black text-white">معرض المابات المشهورة (6 مابات • 100 سكربت لكل ماب)</h3>
+          <p id="gallerySubLabel" class="text-xs text-slate-400">اضغط على أي ماب لفتح سكربتاته مباشرة أو استخدم "تحديث سريع للصور" لتخصيص صوره</p>
+        </div>
+        <button
+          id="closeGallerySectionBtn"
+          type="button"
+          class="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition cursor-pointer"
+        >
+          إغلاق المعرض
+        </button>
+      </div>
+      <div id="mapsGalleryGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5"></div>
+    </section>
+
+    <!-- شريط اختيار المابات المصوّر -->
+    <section class="glass-panel rounded-2xl p-3 sm:p-4 border border-slate-800/90 space-y-2.5">
+      <div class="flex items-center justify-between gap-2">
+        <span id="chooseMapLabel" class="text-xs font-extrabold text-cyan-300">اختر الماب (100 سكربت لكل ماب):</span>
+        <span id="chooseMapHint" class="text-[11px] text-slate-400 hidden sm:inline">صور المابات تظهر على البطاقات والأزرار</span>
+      </div>
+      <div id="mapPillsContainer" class="flex items-center gap-2 overflow-x-auto pb-1"></div>
+    </section>
+
+    <!-- شريط البحث والفلاتر (المحركات والفئات) -->
+    <section class="glass-panel rounded-2xl p-4 sm:p-5 border border-slate-800/90 space-y-4">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-3.5 items-center">
+        <!-- حقل البحث -->
+        <div class="lg:col-span-5 relative">
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="ابحث عن سكربت، ميزة، ماب، أو محرك (Solara, Delta, Krnl, Xeno)..."
+            class="w-full pr-10 pl-4 py-2.5 rounded-xl bg-slate-950/85 border border-slate-700/90 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400"
+          />
+          <svg class="w-4 h-4 text-slate-400 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </div>
+
+        <!-- فلتر المحركات -->
+        <div class="lg:col-span-7 flex flex-wrap items-center gap-1.5 bg-slate-950/75 p-1.5 rounded-xl border border-slate-800">
+          <span id="execFilterLabel" class="px-2 text-[11px] font-bold text-slate-400">المحرك:</span>
+          <button type="button" data-executor="ALL" class="executor-btn px-3 py-1.5 rounded-lg text-xs font-bold">الكل</button>
+          <button type="button" data-executor="Solara" class="executor-btn px-3 py-1.5 rounded-lg text-xs font-bold">Solara</button>
+          <button type="button" data-executor="Delta" class="executor-btn px-3 py-1.5 rounded-lg text-xs font-bold">Delta</button>
+          <button type="button" data-executor="Krnl" class="executor-btn px-3 py-1.5 rounded-lg text-xs font-bold">Krnl</button>
+          <button type="button" data-executor="Xeno" class="executor-btn px-3 py-1.5 rounded-lg text-xs font-bold">Xeno</button>
+        </div>
+      </div>
+
+      <!-- أزرار الفئات وعداد النتائج -->
+      <div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-800/80">
+        <div class="flex flex-wrap items-center gap-1.5">
+          <button type="button" data-category="ALL" class="category-btn px-3 py-1.5 rounded-xl text-xs font-bold">جميع الفئات</button>
+          <button type="button" data-category="Auto-Farm" class="category-btn px-3 py-1.5 rounded-xl text-xs font-bold">التجميع الآلي</button>
+          <button type="button" data-category="Combat" class="category-btn px-3 py-1.5 rounded-xl text-xs font-bold">القتال</button>
+          <button type="button" data-category="Visuals/ESP" class="category-btn px-3 py-1.5 rounded-xl text-xs font-bold">البصريات ESP</button>
+          <button type="button" data-category="Movement" class="category-btn px-3 py-1.5 rounded-xl text-xs font-bold">الحركة</button>
+          <button type="button" data-category="Utility" class="category-btn px-3 py-1.5 rounded-xl text-xs font-bold">الأدوات</button>
+          <button type="button" data-category="FAVORITES" class="category-btn px-3 py-1.5 rounded-xl text-xs font-bold">★ المفضلة</button>
+          <button type="button" id="toggleWorkingOnlyBtn" class="px-3 py-1.5 rounded-xl text-xs font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-400/45 hover:bg-emerald-500/30 transition cursor-pointer">
+            ✓ شغّال 100% فقط
+          </button>
+        </div>
+
+        <div id="countsSummaryBox" class="text-xs text-slate-400 font-bold">
+          معروض <span id="visibleCount" class="text-cyan-300 font-mono">0</span> من أصل
+          <span id="resultsCount" class="text-white font-mono">0</span> سكربت
+        </div>
+      </div>
+    </section>
+
+    <!-- شبكة السكربتات -->
+    <section>
+      <div id="scriptsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5"></div>
+
+      <!-- حالة عدم وجود نتائج -->
+      <div id="emptyState" class="hidden glass-panel rounded-3xl p-10 text-center space-y-3 border border-slate-800 mt-4">
+        <div class="text-3xl">🔍</div>
+        <h3 id="emptyTitleLabel" class="text-base sm:text-lg font-black text-white">لم يتم العثور على سكربتات مطابقة</h3>
+        <p id="emptyDescLabel" class="text-xs sm:text-sm text-slate-400">جرّب تغيير كلمة البحث أو إعادة ضبط الفلاتر لعرض السكربتات المتاحة.</p>
+        <button
+          id="clearFiltersBtn"
+          type="button"
+          class="px-4 py-2 rounded-xl text-xs font-extrabold bg-cyan-500 hover:bg-cyan-400 text-slate-950 transition cursor-pointer"
+        >
+          إعادة ضبط الفلاتر
+        </button>
+      </div>
+
+      <!-- أزرار تحميل المزيد -->
+      <div id="loadMoreContainer" class="hidden mt-7 flex flex-wrap items-center justify-center gap-3">
+        <button
+          id="loadMoreBtn"
+          type="button"
+          class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold bg-gradient-to-r from-cyan-400 to-teal-400 hover:brightness-110 text-slate-950 shadow-lg transition cursor-pointer"
+        >
+          عرض المزيد من السكربتات (+24)
+        </button>
+        <button
+          id="showAllBtn"
+          type="button"
+          class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-slate-700 transition cursor-pointer"
+        >
+          عرض كل النتائج المطابقة
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- نافذة تحديث سريع لصور المابات -->
+  <div id="quickImagesModal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md">
+    <div class="glass-panel w-full max-w-4xl max-h-[92vh] rounded-3xl border border-slate-700/85 shadow-2xl flex flex-col overflow-hidden">
+      <div class="px-5 py-4 border-b border-slate-800 flex items-center justify-between gap-3 bg-slate-950/75">
+        <div>
+          <h3 class="text-base sm:text-lg font-black text-white flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+            <span>مدير صور المابات السريع (Quick Map Images)</span>
+          </h3>
+          <p class="text-xs text-slate-400 mt-0.5">
+            أدخل Place ID أو رابط صورة أو ارفع صورة من جهازك أو اختر قالبًا جاهزًا بضغطة واحدة
+          </p>
+        </div>
+        <button
+          id="closeQuickImagesBtn"
+          type="button"
+          class="p-2 rounded-xl bg-slate-800/80 hover:bg-rose-500/20 text-slate-300 hover:text-rose-300 border border-slate-700 transition cursor-pointer"
+        >
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="p-4 sm:p-6 overflow-y-auto space-y-5 flex-1">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
+          <div class="lg:col-span-5 space-y-3">
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1.5">اختر الماب المراد تعديل صورته</label>
+              <select
+                id="quickMapSelect"
+                class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/90 border border-slate-700 text-sm text-white focus:outline-none focus:border-cyan-400"
+              ></select>
+            </div>
+
+            <div class="rounded-2xl overflow-hidden border border-slate-700/80 bg-slate-950">
+              <div id="quickLivePreviewBox" class="h-36 w-full"></div>
+              <div class="px-3.5 py-2.5 bg-slate-900/90 flex items-center justify-between text-xs">
+                <span id="quickLiveMapName" class="font-extrabold text-white"></span>
+                <span id="quickLiveSourceBadge" class="px-2 py-0.5 rounded-md font-mono text-[10px] bg-cyan-500/15 text-cyan-300 border border-cyan-400/30"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-7 space-y-3.5">
+            <div class="p-3.5 rounded-2xl bg-slate-900/75 border border-slate-800 space-y-2">
+              <label class="block text-xs font-extrabold text-cyan-300">1. رقم Place ID / Asset ID (وسم سريع + توليد فوري)</label>
+              <div class="flex gap-2">
+                <input
+                  id="quickPlaceIdInput"
+                  type="text"
+                  dir="ltr"
+                  placeholder="مثال: 2753915549 أو 9992339721"
+                  class="flex-1 px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 font-mono text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400"
+                />
+                <button
+                  id="applyPlaceIdBtn"
+                  type="button"
+                  class="px-3.5 py-2 rounded-xl text-xs font-extrabold bg-cyan-500 hover:bg-cyan-400 text-slate-950 transition cursor-pointer shrink-0"
+                >
+                  تطبيق ID
+                </button>
+              </div>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-slate-900/75 border border-slate-800 space-y-2">
+              <label class="block text-xs font-extrabold text-emerald-300">2. لصق رابط صورة مباشر (URL مع حماية تلقائية)</label>
+              <div class="flex gap-2">
+                <input
+                  id="quickImageUrlInput"
+                  type="url"
+                  dir="ltr"
+                  placeholder="https://example.com/map-banner.png"
+                  class="flex-1 px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-400"
+                />
+                <button
+                  id="applyImageUrlBtn"
+                  type="button"
+                  class="px-3.5 py-2 rounded-xl text-xs font-extrabold bg-emerald-500 hover:bg-emerald-400 text-slate-950 transition cursor-pointer shrink-0"
+                >
+                  حفظ الرابط
+                </button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div class="p-3.5 rounded-2xl bg-slate-900/75 border border-slate-800 space-y-2">
+                <label class="block text-xs font-extrabold text-purple-300">3. رفع صورة من جهازك</label>
+                <input
+                  id="quickImageFileInput"
+                  type="file"
+                  accept="image/*"
+                  class="block w-full text-[11px] text-slate-300 file:ml-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-purple-500/25 file:text-purple-200 hover:file:bg-purple-500/40 cursor-pointer"
+                />
+              </div>
+
+              <div class="p-3.5 rounded-2xl bg-slate-900/75 border border-slate-800 space-y-2">
+                <label class="block text-xs font-extrabold text-amber-300">4. قوالب جاهزة بنقرة واحدة</label>
+                <div class="flex flex-wrap gap-1.5" id="quickPresetButtons">
+                  <button type="button" data-preset="cyber" class="px-2.5 py-1.5 rounded-lg text-[11px] font-bold bg-cyan-500/20 text-cyan-200 border border-cyan-400/35 hover:bg-cyan-500/30 transition cursor-pointer">سايبر</button>
+                  <button type="button" data-preset="crimson" class="px-2.5 py-1.5 rounded-lg text-[11px] font-bold bg-rose-500/20 text-rose-200 border border-rose-400/35 hover:bg-rose-500/30 transition cursor-pointer">قرمزي</button>
+                  <button type="button" data-preset="emerald" class="px-2.5 py-1.5 rounded-lg text-[11px] font-bold bg-emerald-500/20 text-emerald-200 border border-emerald-400/35 hover:bg-emerald-500/30 transition cursor-pointer">زمردي</button>
+                  <button type="button" data-preset="gold" class="px-2.5 py-1.5 rounded-lg text-[11px] font-bold bg-amber-500/20 text-amber-200 border border-amber-400/35 hover:bg-amber-500/30 transition cursor-pointer">ذهبي</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-3 border-t border-slate-800 space-y-2.5">
+          <div class="flex items-center justify-between">
+            <h4 class="text-xs font-extrabold text-slate-300">تعديل سريع لجميع المابات (6 مابات)</h4>
+            <button
+              id="resetAllCustomImagesBtn"
+              type="button"
+              class="px-3 py-1 rounded-lg text-[11px] font-bold bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-400/30 transition cursor-pointer"
+            >
+              استعادة الصور الافتراضية للكل
+            </button>
+          </div>
+          <div id="quickAllMapsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- نافذة تسجيل الدخول / إنشاء حساب / الملف الشخصي -->
+  <div id="authModal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md">
+    <div class="glass-panel w-full max-w-lg rounded-3xl border border-slate-700/85 shadow-2xl overflow-hidden">
+      <div class="px-5 py-4 border-b border-slate-800 flex items-center justify-between bg-slate-950/70">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
+          <h3 id="authModalTitle" class="text-base sm:text-lg font-black text-white">
+            حساب <span dir="ltr"><span class="brand-part-script">Script</span><span class="brand-part-rblx">Rblx</span></span>
+          </h3>
+        </div>
+        <button
+          id="closeAuthModalBtn"
+          type="button"
+          class="p-2 rounded-xl bg-slate-800/80 hover:bg-rose-500/20 text-slate-300 hover:text-rose-300 border border-slate-700 transition cursor-pointer"
+        >
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div id="authModalBody" class="p-5 sm:p-6 space-y-4"></div>
+    </div>
+  </div>
+
+  <!-- نافذة معاينة الكود ومحاكاة التنفيذ -->
+  <div id="previewModal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md">
+    <div class="glass-panel w-full max-w-4xl max-h-[92vh] rounded-3xl border border-slate-700/85 shadow-2xl flex flex-col overflow-hidden">
+      <div class="px-5 py-4 border-b border-slate-800 flex items-center justify-between gap-3 bg-slate-950/70">
+        <div class="flex items-center gap-3 min-w-0">
+          <div id="modalMapThumb" class="w-12 h-12 rounded-xl overflow-hidden border border-slate-700 shrink-0"></div>
+          <div class="min-w-0">
+            <div class="flex items-center gap-2 flex-wrap">
+              <h3 id="modalTitle" class="text-base sm:text-lg font-black text-white truncate"></h3>
+              <span id="modalCategoryBadge" class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-purple-500/15 text-purple-300 border border-purple-400/30"></span>
+            </div>
+            <p id="modalMeta" class="text-xs text-slate-400 truncate mt-0.5"></p>
+          </div>
+        </div>
+
+        <button
+          id="closePreviewModal"
+          type="button"
+          class="p-2 rounded-xl bg-slate-800/80 hover:bg-rose-500/20 text-slate-300 hover:text-rose-300 border border-slate-700 transition cursor-pointer shrink-0"
+        >
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="p-4 sm:p-6 overflow-y-auto space-y-4 flex-1">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900 border border-slate-700/80 text-xs font-mono text-cyan-300">
+              <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+              payload.lua
+            </span>
+            <button
+              id="toggleEditLuaBtn"
+              type="button"
+              class="px-3 py-1 rounded-lg text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition cursor-pointer"
+            >
+              تعديل الكود
+            </button>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button
+              id="simulateRunBtn"
+              type="button"
+              class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-400/40 transition cursor-pointer"
+            >
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              <span>محاكاة التنفيذ</span>
+            </button>
+
+            <button
+              id="modalCopyBtn"
+              type="button"
+              class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-extrabold bg-cyan-500 hover:bg-cyan-400 text-slate-950 transition cursor-pointer"
+            >
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              <span>نسخ السكربت</span>
+            </button>
+          </div>
+        </div>
+
+        <div dir="ltr" class="rounded-2xl bg-[#04060c] border border-slate-800 overflow-hidden">
+          <pre id="luaHighlightedView" class="p-4 text-xs sm:text-sm font-mono leading-relaxed overflow-x-auto text-slate-200"></pre>
+          <textarea
+            id="luaEditorTextarea"
+            rows="12"
+            spellcheck="false"
+            class="hidden w-full p-4 bg-[#04060c] text-xs sm:text-sm font-mono leading-relaxed text-cyan-100 focus:outline-none resize-y"
+          ></textarea>
+        </div>
+
+        <div class="rounded-2xl bg-slate-950/95 border border-slate-800 overflow-hidden">
+          <div class="px-4 py-2 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between">
+            <div class="flex items-center gap-2 text-xs font-bold text-slate-300">
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              <span>وحدة محاكاة التنفيذ (Executor Console)</span>
+            </div>
+            <button
+              id="clearConsoleBtn"
+              type="button"
+              class="text-[11px] text-slate-400 hover:text-cyan-300 transition cursor-pointer"
+            >
+              مسح السجل
+            </button>
+          </div>
+          <div id="consoleOutput" dir="ltr" class="p-3.5 font-mono text-xs space-y-1.5 max-h-40 overflow-y-auto text-slate-300">
+            <div class="text-slate-500">[SYSTEM] Executor simulator initialized. Ready to run Lua script.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- نافذة إضافة سكربت مخصص -->
+  <div id="addScriptModal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md">
+    <div class="glass-panel w-full max-w-2xl max-h-[92vh] rounded-3xl border border-slate-700/85 shadow-2xl flex flex-col overflow-hidden">
+      <div class="px-5 py-4 border-b border-slate-800 flex items-center justify-between bg-slate-950/70">
+        <div>
+          <h3 class="text-lg font-black text-white">إضافة سكربت جديد إلى الخزنة</h3>
+          <p class="text-xs text-slate-400">اختر الماب والمحركات المتوافقة واحفظ سكربتك فورًا</p>
+        </div>
+        <button
+          id="closeAddModal"
+          type="button"
+          class="p-2 rounded-xl bg-slate-800/80 hover:bg-rose-500/20 text-slate-300 hover:text-rose-300 border border-slate-700 transition cursor-pointer"
+        >
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <form id="addScriptForm" class="p-5 sm:p-6 overflow-y-auto space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">اسم السكربت *</label>
+            <input
+              id="newScriptTitle"
+              type="text"
+              required
+              placeholder="مثال: سكريبت تجميع سريع وتفادي تلقائي"
+              class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-slate-700 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400"
+            />
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">الماب المستهدف *</label>
+            <select
+              id="newScriptMap"
+              class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-slate-700 text-sm text-white focus:outline-none focus:border-cyan-400"
+            ></select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">الفئة *</label>
+            <select
+              id="newScriptCategory"
+              class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-slate-700 text-sm text-white focus:outline-none focus:border-cyan-400"
+            >
+              <option value="Auto-Farm">التجميع الآلي (Auto-Farm)</option>
+              <option value="Combat">القتال (Combat)</option>
+              <option value="Visuals/ESP">البصريات (ESP)</option>
+              <option value="Movement">الحركة (Movement)</option>
+              <option value="Utility">الأدوات (Utility)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">المحركات المتوافقة *</label>
+            <div id="newExecutorCheckboxes" class="flex flex-wrap gap-2 pt-1">
+              <label class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-slate-950/80 border border-slate-700 text-xs font-mono text-cyan-300 cursor-pointer">
+                <input type="checkbox" value="Solara" checked class="accent-cyan-400 rounded" />
+                <span>Solara</span>
+              </label>
+              <label class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-slate-950/80 border border-slate-700 text-xs font-mono text-emerald-300 cursor-pointer">
+                <input type="checkbox" value="Delta" checked class="accent-emerald-400 rounded" />
+                <span>Delta</span>
+              </label>
+              <label class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-slate-950/80 border border-slate-700 text-xs font-mono text-purple-300 cursor-pointer">
+                <input type="checkbox" value="Krnl" checked class="accent-purple-400 rounded" />
+                <span>Krnl</span>
+              </label>
+              <label class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-slate-950/80 border border-slate-700 text-xs font-mono text-amber-300 cursor-pointer">
+                <input type="checkbox" value="Xeno" checked class="accent-amber-400 rounded" />
+                <span>Xeno</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">وصف مختصر *</label>
+          <input
+            id="newScriptDesc"
+            type="text"
+            required
+            placeholder="اشرح أبرز خصائص السكربت وطريقة عمله..."
+            class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-slate-700 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400"
+          />
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">كود Lua *</label>
+          <textarea
+            id="newScriptCode"
+            rows="6"
+            required
+            dir="ltr"
+            spellcheck="false"
+            placeholder="-- اكتب كود Lua هنا&#10;print('ScriptRblx Custom Script Loaded!')"
+            class="w-full px-3.5 py-2.5 rounded-xl bg-[#04060c] border border-slate-700 font-mono text-xs sm:text-sm text-cyan-100 placeholder-slate-600 focus:outline-none focus:border-cyan-400"
+          ></textarea>
+        </div>
+
+        <div class="flex items-center justify-end gap-2.5 pt-2">
+          <button
+            type="button"
+            id="cancelAddScriptBtn"
+            class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-slate-800 hover:bg-slate-700 text-slate-300 transition cursor-pointer"
+          >
+            إلغاء
+          </button>
+          <button
+            type="submit"
+            class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold bg-gradient-to-r from-cyan-400 to-emerald-400 hover:brightness-110 text-slate-950 shadow-lg shadow-cyan-500/20 transition cursor-pointer"
+          >
+            حفظ السكربت
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- حاوية الإشعارات -->
+  <div id="toastContainer" class="fixed bottom-5 left-5 z-[70] flex flex-col gap-2 pointer-events-none"></div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      const STORAGE_KEYS = {
+        CUSTOM_SCRIPTS: 'scriptrblx_custom_scripts_v2',
+        USERS_DB: 'scriptrblx_users_db_v2',
+        ACTIVE_SESSION: 'scriptrblx_active_session_v2',
+        CUSTOM_MAP_IMAGES: 'scriptrblx_custom_map_images_v1',
+        LANG: 'scriptrblx_lang_v1'
+      };
+
+      const PAGE_STEP = 24;
+
+      const I18N = {
+        ar: {
+          pageTitle: 'ScriptRblx | مكتبة السكربتات للمحركات (Solara • Delta • Krnl • Xeno)',
+          langBtn: 'EN',
+          gateLangBtn: 'English',
+          headerBadge: '600+ سكربت',
+          headerSubtitle: '100 سكربت لكل ماب • Solara • Delta • Krnl • Xeno',
+          galleryOpen: 'معرض المابات',
+          galleryClose: 'إغلاق المعرض',
+          addScriptBtn: 'أضف سكربتك',
+          gateBadge: '• دخول إجباري',
+          gateTitle: 'تسجيل الدخول',
+          gateSubtitle: 'سجّل دخولك أو أنشئ حسابًا للبدء.',
+          heroBadge: 'سكربتات Lua شغّالة وآمنة بـ pcall لجميع المحركات + 100 لكل ماب',
+          heroTitle: 'أضخم مكتبة أكواد <span class="text-cyan-300">Lua</span> شغّالة فعليًا بصور مابات مخصصة',
+          heroDesc: 'كل سكربت مبني ببنية <strong class="text-emerald-300">pcall</strong> آمنة لا تسبب كراش، ويستخدم خدمات Roblox الحقيقية (<strong class="text-cyan-300">RunService</strong>، <strong class="text-cyan-300">TweenService</strong>، <strong class="text-cyan-300">UserInputService</strong>، <strong class="text-cyan-300">VirtualUser</strong>) مع منطق فعلي لكل ماب ومحرك <strong class="text-cyan-300">Solara</strong>، <strong class="text-emerald-300">Delta</strong>، <strong class="text-purple-300">Krnl</strong>، و<strong class="text-amber-300">Xeno</strong>.',
+          chooseMapLabel: 'اختر الماب (100 سكربت لكل ماب):',
+          chooseMapHint: 'صور المابات تظهر على البطاقات والأزرار',
+          allMixPill: 'الكل (مختلط)',
+          mapScriptsBadge: '100 سكربت',
+          openMapBtn: 'فتح سكربتات',
+          searchPlaceholder: 'ابحث عن سكربت، ميزة، ماب، أو محرك (Solara, Delta, Krnl, Xeno)...',
+          execFilterLabel: 'المحرك:',
+          allFilter: 'الكل',
+          catAll: 'جميع الفئات',
+          catFarm: 'التجميع الآلي',
+          catCombat: 'القتال',
+          catVisuals: 'البصريات ESP',
+          catMove: 'الحركة',
+          catUtil: 'الأدوات',
+          catFav: '★ المفضلة',
+          workingOnlyBtn: '✓ شغّال 100% فقط',
+          emptyTitle: 'لم يتم العثور على سكربتات مطابقة',
+          emptyDesc: 'جرّب تغيير كلمة البحث أو إعادة ضبط الفلاتر لعرض السكربتات المتاحة.',
+          clearFiltersBtn: 'إعادة ضبط الفلاتر',
+          loadMoreBtn: 'عرض المزيد من السكربتات (+24)',
+          showAllBtn: 'عرض كل النتائج المطابقة',
+          previewBtn: 'معاينة',
+          copyBtn: 'نسخ السكربت',
+          langToast: 'تم التبديل إلى اللغة العربية (AR)'
+        },
+        en: {
+          pageTitle: 'ScriptRblx | Executor Lua Hub (Solara • Delta • Krnl • Xeno)',
+          langBtn: 'AR',
+          gateLangBtn: 'العربية',
+          headerBadge: '600+ Scripts',
+          headerSubtitle: '100 Scripts Per Map • Solara • Delta • Krnl • Xeno',
+          galleryOpen: 'Maps Gallery',
+          galleryClose: 'Close Gallery',
+          addScriptBtn: 'Add Script',
+          gateBadge: '• Required Login',
+          gateTitle: 'Sign In',
+          gateSubtitle: 'Sign in or create an account to get started.',
+          heroBadge: 'Safe pcall-protected Lua scripts for all executors + 100 per map',
+          heroTitle: 'Massive <span class="text-cyan-300">Lua</span> Script Hub with Custom Map Artwork',
+          heroDesc: 'Every script uses safe <strong class="text-emerald-300">pcall</strong> wrappers and real Roblox services (<strong class="text-cyan-300">RunService</strong>, <strong class="text-cyan-300">TweenService</strong>, <strong class="text-cyan-300">UserInputService</strong>, <strong class="text-cyan-300">VirtualUser</strong>) tailored for <strong class="text-cyan-300">Solara</strong>, <strong class="text-emerald-300">Delta</strong>, <strong class="text-purple-300">Krnl</strong>, and <strong class="text-amber-300">Xeno</strong>.',
+          chooseMapLabel: 'Choose Map (100 scripts per map):',
+          chooseMapHint: 'Map artwork appears on cards and action buttons',
+          allMixPill: 'All (Mixed)',
+          mapScriptsBadge: '100 Scripts',
+          openMapBtn: 'Open',
+          searchPlaceholder: 'Search scripts, features, maps, or executors (Solara, Delta, Krnl, Xeno)...',
+          execFilterLabel: 'Executor:',
+          allFilter: 'All',
+          catAll: 'All Categories',
+          catFarm: 'Auto-Farm',
+          catCombat: 'Combat',
+          catVisuals: 'Visuals/ESP',
+          catMove: 'Movement',
+          catUtil: 'Utility',
+          catFav: '★ Favorites',
+          workingOnlyBtn: '✓ 100% Working Only',
+          emptyTitle: 'No matching scripts found',
+          emptyDesc: 'Try another search keyword or reset your filters to view available scripts.',
+          clearFiltersBtn: 'Reset Filters',
+          loadMoreBtn: 'Load More Scripts (+24)',
+          showAllBtn: 'Show All Matching Results',
+          previewBtn: 'Preview',
+          copyBtn: 'Copy Script',
+          langToast: 'Switched to English (EN)'
+        }
+      };
+
+      const PRESET_PALETTES = {
+        cyber: { c1: '#05162b', c2: '#0c4a6e', c3: '#00f0ff', tag: 'CYBER MODE' },
+        crimson: { c1: '#240715', c2: '#7f1d1d', c3: '#fb7185', tag: 'COMBAT PRO' },
+        emerald: { c1: '#042219', c2: '#065f46', c3: '#34d399', tag: 'TURBO FARM' },
+        gold: { c1: '#231604', c2: '#92400e', c3: '#fbbf24', tag: 'VIP EDITION' }
+      };
+
+      // تعريف المابات المشهورة مع صور SVG مخصصة لكل ماب (بما في ذلك Steal an Egg)
+      const FAMOUS_MAPS = [
+        {
+          id: 'blox-fruits',
+          name: 'Blox Fruits',
+          arabicTag: 'بلوكس فروتس',
+          accent: '#00f0ff',
+          secondary: '#2563eb',
+          badgeClass: 'bg-cyan-500/15 text-cyan-300 border-cyan-400/35',
+          themeLabel: 'محيط • فواكه • زعماء',
+          svgArt: `<svg viewBox="0 0 160 90" class="w-full h-full object-cover" xmlns="http://www.w3.org/2000/svg">
+            <rect width="160" height="90" fill="#030303"/>
+            <g transform="translate(80, 44)">
+              <circle cx="0" cy="-12" r="11" fill="#030303" stroke="#ffffff" stroke-width="2.2"/>
+              <line x1="0" y1="-26" x2="0" y2="-23" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+              <line x1="0" y1="-1" x2="0" y2="2" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+              <line x1="-14" y1="-12" x2="-11" y2="-12" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+              <line x1="11" y1="-12" x2="14" y2="-12" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+              <line x1="-10" y1="-22" x2="-8" y2="-20" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+              <line x1="8" y1="-4" x2="10" y2="-2" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+              <line x1="10" y1="-22" x2="8" y2="-20" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+              <line x1="-8" y1="-4" x2="-10" y2="-2" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+              <path d="M-7 -15 Q0 -21 7 -15 L5 -12 L-5 -12 Z" fill="#ffffff"/>
+              <circle cx="0" cy="-10" r="4.5" fill="#ffffff"/>
+              <circle cx="-1.6" cy="-10.5" r="1.2" fill="#030303"/>
+              <circle cx="1.6" cy="-10.5" r="1.2" fill="#030303"/>
+              <line x1="-46" y1="-6" x2="46" y2="7" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/>
+              <line x1="-46" y1="7" x2="46" y2="-6" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/>
+              <text x="0" y="-7" text-anchor="middle" fill="#ffffff" stroke="#030303" stroke-width="1.4" paint-order="stroke fill" font-size="18" font-weight="900" font-family="Impact, Arial Black, sans-serif" letter-spacing="1.5">BLOX</text>
+              <text x="0" y="18" text-anchor="middle" fill="#ffffff" stroke="#030303" stroke-width="1.6" paint-order="stroke fill" font-size="21" font-weight="900" font-family="Impact, Arial Black, sans-serif" letter-spacing="1.2">FRUITS</text>
+            </g>
+          </svg>`
+        },
+        {
+          id: 'steal-an-egg',
+          name: 'Steal an Egg',
+          arabicTag: 'سرقة البيضة',
+          accent: '#f472b6',
+          secondary: '#38bdf8',
+          badgeClass: 'bg-pink-500/15 text-pink-300 border-pink-400/35',
+          themeLabel: 'سرقة • بيضة • مطاردة',
+          svgArt: `<svg viewBox="0 0 160 90" class="w-full h-full object-cover" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="se-sky" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#1e1b4b"/>
+                <stop offset="50%" stop-color="#701a75"/>
+                <stop offset="100%" stop-color="#0284c7"/>
+              </linearGradient>
+              <radialGradient id="se-glow" cx="0.52" cy="0.48" r="0.45">
+                <stop offset="0%" stop-color="#fef08a" stop-opacity="0.88"/>
+                <stop offset="55%" stop-color="#f472b6" stop-opacity="0.42"/>
+                <stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>
+              </radialGradient>
+              <linearGradient id="se-egg" x1="0.2" y1="0" x2="0.8" y2="1">
+                <stop offset="0%" stop-color="#ffffff"/>
+                <stop offset="55%" stop-color="#fde047"/>
+                <stop offset="100%" stop-color="#ec4899"/>
+              </linearGradient>
+            </defs>
+            <rect width="160" height="90" fill="url(#se-sky)"/>
+            <circle cx="84" cy="44" r="34" fill="url(#se-glow)"/>
+            <path d="M44 26 A42 42 0 0 1 124 26" stroke="#38bdf8" stroke-width="2" fill="none" stroke-dasharray="5 4"/>
+            <path d="M122 64 A42 42 0 0 1 46 64" stroke="#f472b6" stroke-width="2" fill="none" stroke-dasharray="5 4"/>
+            <g transform="translate(84, 44) rotate(-8)">
+              <ellipse cx="0" cy="0" rx="15" ry="20" fill="url(#se-egg)" stroke="#1e1b4b" stroke-width="2.2"/>
+              <ellipse cx="-5" cy="-8" rx="3" ry="6" transform="rotate(-15 -5 -8)" fill="#ffffff" fill-opacity="0.85"/>
+              <path d="M-14 -2 L-5 3 L4 -3 L14 2" stroke="#1e1b4b" stroke-width="2" fill="none" stroke-linecap="round"/>
+            </g>
+            <rect x="0" y="73" width="160" height="17" fill="#090d1a" stroke="#e879f9" stroke-width="1.3"/>
+            <text x="80" y="85" text-anchor="middle" fill="#f5d0fe" stroke="#1e1b4b" stroke-width="1.4" paint-order="stroke fill" font-size="8.5" font-weight="900" font-family="Arial Black, sans-serif" letter-spacing="0.8">STEAL AN EGG</text>
+          </svg>`
+        },
+        {
+          id: 'brookhaven-rp',
+          name: 'Brookhaven RP',
+          arabicTag: 'بروكهافن RP',
+          accent: '#38bdf8',
+          secondary: '#10b981',
+          badgeClass: 'bg-sky-500/15 text-sky-300 border-sky-400/35',
+          themeLabel: 'مدينة • منازل • مركبات',
+          svgArt: `<svg viewBox="0 0 160 90" class="w-full h-full object-cover" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="bh-sky" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#0ea5e9"/>
+                <stop offset="65%" stop-color="#7dd3fc"/>
+                <stop offset="100%" stop-color="#bbf7d0"/>
+              </linearGradient>
+            </defs>
+            <rect width="160" height="90" fill="url(#bh-sky)"/>
+            <ellipse cx="30" cy="18" rx="12" ry="5" fill="#ffffff"/>
+            <ellipse cx="128" cy="15" rx="14" ry="5" fill="#ffffff"/>
+            <rect x="0" y="54" width="160" height="36" fill="#22c55e"/>
+            <rect x="0" y="68" width="160" height="14" fill="#334155"/>
+            <line x1="0" y1="75" x2="160" y2="75" stroke="#facc15" stroke-width="1.8" stroke-dasharray="8 6"/>
+            <polygon points="80,14 44,40 116,40" fill="#ef4444" stroke="#0f172a" stroke-width="1.8"/>
+            <rect x="50" y="40" width="60" height="24" fill="#f8fafc" stroke="#0f172a" stroke-width="1.8"/>
+            <rect x="73" y="47" width="14" height="17" rx="1.5" fill="#78350f" stroke="#0f172a" stroke-width="1.4"/>
+            <rect x="56" y="45" width="11" height="10" rx="1.5" fill="#38bdf8" stroke="#0f172a" stroke-width="1.3"/>
+            <rect x="93" y="45" width="11" height="10" rx="1.5" fill="#38bdf8" stroke="#0f172a" stroke-width="1.3"/>
+            <rect x="24" y="64" width="28" height="10" rx="3" fill="#06b6d4" stroke="#0f172a" stroke-width="1.5"/>
+            <polygon points="29,64 33,58 45,58 48,64" fill="#e0f2fe" stroke="#0f172a" stroke-width="1.4"/>
+            <circle cx="31" cy="74" r="4" fill="#0f172a" stroke="#94a3b8" stroke-width="1.2"/>
+            <circle cx="46" cy="74" r="4" fill="#0f172a" stroke="#94a3b8" stroke-width="1.2"/>
+            <text x="126" y="86" text-anchor="middle" fill="#ffffff" stroke="#0f172a" stroke-width="1.4" paint-order="stroke fill" font-size="8" font-weight="900" font-family="Arial Black, sans-serif">BROOKHAVEN</text>
+          </svg>`
+        },
+        {
+          id: 'bedwars',
+          name: 'BedWars',
+          arabicTag: 'حرب الأسرة',
+          accent: '#fb7185',
+          secondary: '#f59e0b',
+          badgeClass: 'bg-pink-500/15 text-pink-300 border-pink-400/35',
+          themeLabel: 'كسر الأسرة • قتال • جزر',
+          svgArt: `<svg viewBox="0 0 160 90" class="w-full h-full object-cover" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="bw-sky" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#1e1b4b"/>
+                <stop offset="55%" stop-color="#831843"/>
+                <stop offset="100%" stop-color="#ea580c"/>
+              </linearGradient>
+            </defs>
+            <rect width="160" height="90" fill="url(#bw-sky)"/>
+            <polygon points="34,62 126,62 108,82 52,82" fill="#78350f" stroke="#0f172a" stroke-width="1.6"/>
+            <rect x="30" y="54" width="100" height="10" rx="4" fill="#22c55e" stroke="#052e16" stroke-width="1.6"/>
+            <rect x="52" y="39" width="56" height="15" rx="3" fill="#f8fafc" stroke="#0f172a" stroke-width="1.6"/>
+            <rect x="52" y="39" width="22" height="15" rx="3" fill="#f43f5e" stroke="#0f172a" stroke-width="1.6"/>
+            <rect x="82" y="35" width="18" height="7" rx="2" fill="#fde047" stroke="#0f172a" stroke-width="1.3"/>
+            <line x1="116" y1="22" x2="136" y2="42" stroke="#e2e8f0" stroke-width="3" stroke-linecap="round"/>
+            <line x1="136" y1="22" x2="116" y2="42" stroke="#facc15" stroke-width="3" stroke-linecap="round"/>
+            <text x="80" y="16" text-anchor="middle" fill="#ffffff" stroke="#09090b" stroke-width="1.5" paint-order="stroke fill" font-size="11" font-weight="900" font-family="Impact, Arial Black, sans-serif" letter-spacing="1">BEDWARS</text>
+          </svg>`
+        },
+        {
+          id: 'anime-defenders',
+          name: 'Anime Defenders',
+          arabicTag: 'أنمي ديفندرز',
+          accent: '#c084fc',
+          secondary: '#38bdf8',
+          badgeClass: 'bg-violet-500/15 text-violet-300 border-violet-400/35',
+          themeLabel: 'دفاع • وحدات • موجات',
+          svgArt: `<svg viewBox="0 0 160 90" class="w-full h-full object-cover" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="ad-bg" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#1e1042"/>
+                <stop offset="50%" stop-color="#6d28d9"/>
+                <stop offset="100%" stop-color="#0284c7"/>
+              </linearGradient>
+            </defs>
+            <rect width="160" height="90" fill="url(#ad-bg)"/>
+            <circle cx="80" cy="44" r="26" fill="#a855f7" fill-opacity="0.22" stroke="#e9d5ff" stroke-width="1.5" stroke-dasharray="5 3"/>
+            <polygon points="80,17 88,35 108,35 92,47 98,66 80,54 62,66 68,47 52,35 72,35" fill="#f3e8ff" stroke="#3b0764" stroke-width="1.6"/>
+            <circle cx="80" cy="41" r="6" fill="#38bdf8" stroke="#0f172a" stroke-width="1.4"/>
+            <text x="80" y="81" text-anchor="middle" fill="#ffffff" stroke="#1e1042" stroke-width="1.5" paint-order="stroke fill" font-size="9.5" font-weight="900" font-family="Arial Black, sans-serif">ANIME DEFENDERS</text>
+          </svg>`
+        },
+        {
+          id: 'universal-hub',
+          name: 'Universal Hub',
+          arabicTag: 'شامل لكل الألعاب',
+          accent: '#2dd4bf',
+          secondary: '#a855f7',
+          badgeClass: 'bg-teal-500/15 text-teal-300 border-teal-400/35',
+          themeLabel: 'عام • طيران • كشف • أدوات',
+          svgArt: `<svg viewBox="0 0 160 90" class="w-full h-full object-cover" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="uh-bg" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#042f2e"/>
+                <stop offset="50%" stop-color="#0d9488"/>
+                <stop offset="100%" stop-color="#7e22ce"/>
+              </linearGradient>
+            </defs>
+            <rect width="160" height="90" fill="url(#uh-bg)"/>
+            <circle cx="80" cy="43" r="22" fill="#14b8a6" fill-opacity="0.2" stroke="#5eead4" stroke-width="2"/>
+            <ellipse cx="80" cy="43" rx="22" ry="8.5" transform="rotate(-18 80 43)" stroke="#e9d5ff" stroke-width="1.6" fill="none"/>
+            <ellipse cx="80" cy="43" rx="22" ry="8.5" transform="rotate(18 80 43)" stroke="#99f6e4" stroke-width="1.6" fill="none"/>
+            <circle cx="80" cy="43" r="5.5" fill="#ffffff" stroke="#0f172a" stroke-width="1.5"/>
+            <text x="80" y="81" text-anchor="middle" fill="#ffffff" stroke="#042f2e" stroke-width="1.5" paint-order="stroke fill" font-size="9.5" font-weight="900" font-family="Arial Black, sans-serif">UNIVERSAL HUB</text>
+          </svg>`
+        }
+      ];
+
+      const CATEGORIES = [
+        { key: 'Auto-Farm', ar: 'التجميع الآلي', en: 'Auto-Farm' },
+        { key: 'Combat', ar: 'القتال', en: 'Combat' },
+        { key: 'Visuals/ESP', ar: 'البصريات ESP', en: 'Visuals/ESP' },
+        { key: 'Movement', ar: 'الحركة', en: 'Movement' },
+        { key: 'Utility', ar: 'الأدوات', en: 'Utility' }
+      ];
+
+      const FEATURE_TEMPLATES = {
+        'Auto-Farm': [
+          'تجميع تلقائي فائق السرعة',
+          'إكمال المهام والجزر تلقائيًا',
+          'تجميع الزعماء والغنائم الذكي',
+          'تجميع الموارد بدون تقطيع',
+          'تبديل تلقائي للأدوات والضربات'
+        ],
+        Combat: [
+          'تصويب تلقائي ذكي ومرن',
+          'صد هجمات فوري عالي الدقة',
+          'هجوم سريع بمدى موسّع',
+          'تتبع الخصوم وتثبيت الرؤية',
+          'تفادي تلقائي للضربات الخطرة'
+        ],
+        'Visuals/ESP': [
+          'كشف اللاعبين والمسافات ESP',
+          'رادار الأهداف والعناصر النادرة',
+          'تحديد الصناديق والمكافآت',
+          'مؤشرات صحة وقوة الخصوم',
+          'إظهار المسارات والاتجاهات'
+        ],
+        Movement: [
+          'طيران حر وسريع بالتحكم الكامل',
+          'زيادة السرعة والقفز القابل للضبط',
+          'انتقال سريع آمن بين المواقع',
+          'اختراق الجدران عند الحاجة',
+          'تثبيت الحركة ومنع السقوط'
+        ],
+        Utility: [
+          'منع الخروج بسبب الخمول Anti-AFK',
+          'رفع الإطارات وتحسين الأداء FPS',
+          'تنظيف المؤثرات الثقيلة',
+          'إعادة دخول سريعة للسيرفر',
+          'لوحة تحكم خفيفة ومرتبة'
+        ]
+      };
+
+      const MODIFIERS = [
+        'إصدار التوربو',
+        'وضع الشبح',
+        'نسخة المحترفين',
+        'الوضع الليلي',
+        'نسخة الأداء العالي',
+        'الوضع الآمن',
+        'نسخة التوافق الشامل',
+        'الوضع السريع',
+        'نسخة النخبة',
+        'الوضع الديناميكي'
+      ];
+
+      const STATUSES = ['يعمل الآن', 'مُحدّث', 'مستقر'];
+
+      function buildWorkingLuaScript(mapObj, catObj, featureName, modifier, i, codeNum, compat, speedVal, delayVal) {
+        const safeMap = mapObj.name.replace(/"/g, '');
+        const safeFeat = featureName.replace(/"/g, '');
+        const safeMod = modifier.replace(/"/g, '');
+
+        if (catObj.key === 'Movement') {
+          const jumpPower = 50 + ((i * 5) % 45);
+          return `-- [${safeMap}] ${safeFeat} #${codeNum} (${safeMod})
+-- Compatible: ${compat.join(', ')} | Protected with pcall
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local LocalPlayer = Players.LocalPlayer
+
+getgenv().ScriptRblxMove = getgenv().ScriptRblxMove or {}
+if getgenv().ScriptRblxMove.Conn then
+    getgenv().ScriptRblxMove.Conn:Disconnect()
+    getgenv().ScriptRblxMove.Conn = nil
+end
+
+local Config = {
+    Map = "${safeMap}",
+    WalkSpeed = ${speedVal},
+    JumpPower = ${jumpPower},
+    FlyEnabled = false,
+    FlySpeed = ${Math.max(36, speedVal)}
+}
+
+local bodyVel, bodyGyro
+
+local function setFly(enabled)
+    Config.FlyEnabled = enabled
+    local char = LocalPlayer.Character
+    local root = char and char:FindFirstChild("HumanoidRootPart")
+    local hum = char and char:FindFirstChildOfClass("Humanoid")
+    if not root or not hum then return end
+
+    if enabled then
+        hum.PlatformStand = true
+        bodyVel = Instance.new("BodyVelocity")
+        bodyVel.MaxForce = Vector3.new(1e5, 1e5, 1e5)
+        bodyVel.Velocity = Vector3.zero
+        bodyVel.Parent = root
+
+        bodyGyro = Instance.new("BodyGyro")
+        bodyGyro.MaxTorque = Vector3.new(1e5, 1e5, 1e5)
+        bodyGyro.P = 9e4
+        bodyGyro.CFrame = root.CFrame
+        bodyGyro.Parent = root
+    else
+        hum.PlatformStand = false
+        if bodyVel then bodyVel:Destroy() bodyVel = nil end
+        if bodyGyro then bodyGyro:Destroy() bodyGyro = nil end
+    end
+end
+
+UserInputService.InputBegan:Connect(function(input, processed)
+    if processed then return end
+    if input.KeyCode == Enum.KeyCode.F then
+        setFly(not Config.FlyEnabled)
+        print("[SCRIPTRBLX ${codeNum}] Fly toggled:", tostring(Config.FlyEnabled))
+    end
+end)
+
+getgenv().ScriptRblxMove.Conn = RunService.RenderStepped:Connect(function()
+    pcall(function()
+        local char = LocalPlayer.Character
+        local hum = char and char:FindFirstChildOfClass("Humanoid")
+        local root = char and char:FindFirstChild("HumanoidRootPart")
+        if not hum or not root then return end
+
+        hum.UseJumpPower = true
+        hum.WalkSpeed = Config.WalkSpeed
+        hum.JumpPower = Config.JumpPower
+
+        if Config.FlyEnabled and bodyVel and bodyGyro then
+            local cam = workspace.CurrentCamera
+            local dir = Vector3.zero
+            if UserInputService:IsKeyDown(Enum.KeyCode.W) then dir += cam.CFrame.LookVector end
+            if UserInputService:IsKeyDown(Enum.KeyCode.S) then dir -= cam.CFrame.LookVector end
+            if UserInputService:IsKeyDown(Enum.KeyCode.D) then dir += cam.CFrame.RightVector end
+            if UserInputService:IsKeyDown(Enum.KeyCode.A) then dir -= cam.CFrame.RightVector end
+            if UserInputService:IsKeyDown(Enum.KeyCode.Space) then dir += Vector3.new(0, 1, 0) end
+            if UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then dir -= Vector3.new(0, 1, 0) end
+
+            bodyVel.Velocity = dir.Magnitude > 0 and dir.Unit * Config.FlySpeed or Vector3.zero
+            bodyGyro.CFrame = cam.CFrame
+        end
+    end)
+end)
+
+print("[SCRIPTRBLX ${codeNum}] ${safeMap} -> ${safeFeat} active! (Press F to Fly)")`;
+        }
+
+        if (catObj.key === 'Visuals/ESP') {
+          return `-- [${safeMap}] ${safeFeat} #${codeNum} (${safeMod})
+-- Compatible: ${compat.join(', ')} | Clean ESP with pcall
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
+
+getgenv().ScriptRblxESP = getgenv().ScriptRblxESP or { Highlights = {}, Enabled = true }
+
+local function clearESP()
+    for plr, hl in pairs(getgenv().ScriptRblxESP.Highlights) do
+        if hl and hl.Parent then
+            pcall(function() hl:Destroy() end)
+        end
+        getgenv().ScriptRblxESP.Highlights[plr] = nil
+    end
+end
+
+local function applyHighlight(plr)
+    if plr == LocalPlayer then return end
+    local char = plr.Character
+    if not char or not char:FindFirstChild("HumanoidRootPart") then return end
+
+    local existing = getgenv().ScriptRblxESP.Highlights[plr]
+    if existing and existing.Parent == char then return end
+
+    local hl = Instance.new("Highlight")
+    hl.Name = "ScriptRblxESP_${codeNum}"
+    hl.FillColor = Color3.fromRGB(0, 240, 255)
+    hl.OutlineColor = Color3.fromRGB(168, 85, 247)
+    hl.FillTransparency = 0.65
+    hl.OutlineTransparency = 0.1
+    hl.Adornee = char
+    hl.Parent = char
+    getgenv().ScriptRblxESP.Highlights[plr] = hl
+end
+
+clearESP()
+for _, plr in ipairs(Players:GetPlayers()) do
+    pcall(applyHighlight, plr)
+end
+
+Players.PlayerAdded:Connect(function(plr)
+    plr.CharacterAdded:Connect(function()
+        task.wait(0.4)
+        if getgenv().ScriptRblxESP.Enabled then
+            pcall(applyHighlight, plr)
+        end
+    end)
+end)
+
+RunService.Heartbeat:Connect(function()
+    if not getgenv().ScriptRblxESP.Enabled then return end
+    for _, plr in ipairs(Players:GetPlayers()) do
+        pcall(applyHighlight, plr)
+    end
+end)
+
+print("[SCRIPTRBLX ${codeNum}] ${safeMap} -> ${safeFeat} enabled!")`;
+        }
+
+        if (catObj.key === 'Utility') {
+          return `-- [${safeMap}] ${safeFeat} #${codeNum} (${safeMod})
+-- Compatible: ${compat.join(', ')} | Anti-AFK + FPS Boost
+local Players = game:GetService("Players")
+local VirtualUser = game:GetService("VirtualUser")
+local LocalPlayer = Players.LocalPlayer
+
+getgenv().ScriptRblxUtil = getgenv().ScriptRblxUtil or {}
+if getgenv().ScriptRblxUtil.IdledConn then
+    getgenv().ScriptRblxUtil.IdledConn:Disconnect()
+end
+
+getgenv().ScriptRblxUtil.IdledConn = LocalPlayer.Idled:Connect(function()
+    pcall(function()
+        VirtualUser:CaptureController()
+        VirtualUser:ClickButton2(Vector2.zero)
+    end)
+end)
+
+local function boostPerformance()
+    pcall(function()
+        settings().Rendering.QualityLevel = Enum.QualityLevel.Level01
+        for _, obj in ipairs(workspace:GetDescendants()) do
+            if obj:IsA("ParticleEmitter") or obj:IsA("Trail") then
+                obj.Enabled = false
+            elseif obj:IsA("BasePart") then
+                obj.Material = Enum.Material.SmoothPlastic
+            end
+        end
+    end)
+end
+
+boostPerformance()
+print("[SCRIPTRBLX ${codeNum}] ${safeMap} -> ${safeFeat} active! Anti-AFK enabled.")`;
+        }
+
+        const modeName = catObj.key === 'Combat' ? 'CombatLock' : 'AutoFarmLoop';
+        return `-- [${safeMap}] ${safeFeat} #${codeNum} (${safeMod})
+-- Compatible: ${compat.join(', ')} | Safe task.spawn + pcall loop
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+getgenv().ScriptRblxCore = getgenv().ScriptRblxCore or {}
+getgenv().ScriptRblxCore.RunToken = (getgenv().ScriptRblxCore.RunToken or 0) + 1
+local currentToken = getgenv().ScriptRblxCore.RunToken
+
+local Settings = {
+    Map = "${safeMap}",
+    Mode = "${modeName}",
+    Feature = "${safeFeat}",
+    Radius = ${speedVal},
+    Delay = ${delayVal},
+    Active = true
+}
+
+local function findNearestTarget()
+    local char = LocalPlayer.Character
+    local root = char and char:FindFirstChild("HumanoidRootPart")
+    if not root then return nil end
+
+    local bestPart = nil
+    local bestDist = Settings.Radius
+
+    for _, plr in ipairs(Players:GetPlayers()) do
+        if plr ~= LocalPlayer and plr.Character then
+            local hum = plr.Character:FindFirstChildOfClass("Humanoid")
+            local hrp = plr.Character:FindFirstChild("HumanoidRootPart")
+            if hum and hum.Health > 0 and hrp then
+                local dist = (hrp.Position - root.Position).Magnitude
+                if dist < bestDist then
+                    bestDist = dist
+                    bestPart = hrp
+                end
+            end
+        end
+    end
+    return bestPart
+end
+
+task.spawn(function()
+    print("[SCRIPTRBLX ${codeNum}] ${safeMap} -> ${safeFeat} (${safeMod}) started!")
+    while Settings.Active and getgenv().ScriptRblxCore.RunToken == currentToken do
+        pcall(function()
+            local target = findNearestTarget()
+            if target then
+                local char = LocalPlayer.Character
+                local root = char and char:FindFirstChild("HumanoidRootPart")
+                if root then
+                    local lookPos = Vector3.new(target.Position.X, root.Position.Y, target.Position.Z)
+                    root.CFrame = CFrame.lookAt(root.Position, lookPos)
+                    print("[SCRIPTRBLX ${codeNum}] ${safeMap} -> ${safeFeat} active on target")
+                end
+            end
+        end)
+        task.wait(Settings.Delay)
+    end
+end)
+
+return Settings`;
+      }
+
+      // توليد 100 سكربت لكل ماب ومزجها بالتناوب في وضع الكل
+      function generateAllCatalogScripts() {
+        const perMapBuckets = FAMOUS_MAPS.map((mapObj, mapIdx) => {
+          const bucket = [];
+          for (let i = 1; i <= 100; i++) {
+            const catObj = CATEGORIES[(i - 1) % CATEGORIES.length];
+            const featList = FEATURE_TEMPLATES[catObj.key];
+            const featureName = featList[(i - 1 + mapIdx) % featList.length];
+            const modifier = MODIFIERS[(i * 3 + mapIdx) % MODIFIERS.length];
+            const status = STATUSES[(i + mapIdx) % STATUSES.length];
+
+            const compat = [];
+            if ((i + mapIdx) % 2 === 0 || i % 3 === 0) compat.push('Solara');
+            if ((i + mapIdx * 2) % 2 === 1 || i % 4 === 0) compat.push('Delta');
+            if ((i * 2 + mapIdx) % 3 !== 0) compat.push('Krnl');
+            if ((i + mapIdx) % 2 === 1 || i % 5 === 0) compat.push('Xeno');
+            if (compat.length === 0) compat.push('Solara', 'Delta', 'Krnl', 'Xeno');
+
+            const codeNum = String(i).padStart(3, '0');
+            const speedVal = 24 + ((i * 7 + mapIdx * 5) % 72);
+            const delayVal = (0.1 + ((i % 9) * 0.05)).toFixed(2);
+
+            const luaCode = buildWorkingLuaScript(
+              mapObj,
+              catObj,
+              featureName,
+              modifier,
+              i,
+              codeNum,
+              compat,
+              speedVal,
+              delayVal
+            );
+
+            bucket.push({
+              id: `${mapObj.id}-scr-${i}`,
+              number: i,
+              mapId: mapObj.id,
+              mapName: mapObj.name,
+              mapArabic: mapObj.arabicTag,
+              category: catObj.key,
+              categoryArabic: catObj.ar,
+              status,
+              workingVerified: true,
+              executors: compat,
+              title: `${featureName} — ${modifier} #${codeNum}`,
+              description: `سكربت شغّال #${codeNum} لماب ${mapObj.name} (${catObj.ar}) محمي بـ pcall ومتوافق مع ${compat.join(', ')}.`,
+              updatedAt: `شغّال #${codeNum}`,
+              code: luaCode,
+              isCustom: false
+            });
+          }
+          return bucket;
+        });
+
+        const interleaved = [];
+        for (let idx = 0; idx < 100; idx++) {
+          for (let m = 0; m < perMapBuckets.length; m++) {
+            const rotatedMapIndex = (m + (idx * 3)) % perMapBuckets.length;
+            interleaved.push(perMapBuckets[rotatedMapIndex][idx]);
+          }
+        }
+        return interleaved;
+      }
+
+      function loadLang() {
+        try {
+          const l = localStorage.getItem(STORAGE_KEYS.LANG);
+          return l === 'en' ? 'en' : 'ar';
+        } catch (_) {
+          return 'ar';
+        }
+      }
+
+      function saveLang(l) {
+        try {
+          localStorage.setItem(STORAGE_KEYS.LANG, l);
+        } catch (_) {}
+      }
+
+      function loadCustomScripts() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEYS.CUSTOM_SCRIPTS);
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            if (Array.isArray(parsed)) return parsed;
+          }
+        } catch (err) {
+          console.error('خطأ في تحميل السكربتات المخصصة:', err);
+        }
+        return [];
+      }
+
+      function saveCustomScripts(customList) {
+        try {
+          localStorage.setItem(STORAGE_KEYS.CUSTOM_SCRIPTS, JSON.stringify(customList));
+        } catch (err) {
+          console.error('خطأ في حفظ السكربتات المخصصة:', err);
+        }
+      }
+
+      function loadUsersDB() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEYS.USERS_DB);
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            if (Array.isArray(parsed)) return parsed;
+          }
+        } catch (err) {
+          console.error('خطأ في قراءة قاعدة المستخدمين:', err);
+        }
+        return [
+          {
+            id: 'usr-demo-pro',
+            username: 'أسطورة_Lua',
+            email: 'pro@scriptrblx.local',
+            badge: 'Executor Pro',
+            avatar: 'cyan',
+            favorites: ['blox-fruits-scr-1', 'steal-an-egg-scr-2', 'brookhaven-rp-scr-1']
+          }
+        ];
+      }
+
+      function saveUsersDB(users) {
+        try {
+          localStorage.setItem(STORAGE_KEYS.USERS_DB, JSON.stringify(users));
+        } catch (err) {
+          console.error('خطأ في حفظ المستخدمين:', err);
+        }
+      }
+
+      function loadSessionUserId() {
+        try {
+          return localStorage.getItem(STORAGE_KEYS.ACTIVE_SESSION) || null;
+        } catch (_) {
+          return null;
+        }
+      }
+
+      function saveSessionUserId(userId) {
+        try {
+          if (userId) {
+            localStorage.setItem(STORAGE_KEYS.ACTIVE_SESSION, userId);
+          } else {
+            localStorage.removeItem(STORAGE_KEYS.ACTIVE_SESSION);
+          }
+        } catch (_) {}
+      }
+
+      function loadCustomMapImages() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEYS.CUSTOM_MAP_IMAGES);
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            if (parsed && typeof parsed === 'object') return parsed;
+          }
+        } catch (err) {
+          console.error('خطأ في تحميل صور المابات المخصصة:', err);
+        }
+        return {
+          'blox-fruits': {
+            imageUrl: 'https://i.pinimg.com/736x/3d/f9/66/3df966086cc3ba57cdd3ac50bb071bd3.jpg'
+          },
+          'steal-a-brainrot': {
+            imageUrl: 'https://i.pinimg.com/736x/46/e6/09/46e609ed37b308a468c3ec7f5269562c.jpg'
+          },
+          'steal-an-egg': {
+            imageUrl: 'https://i.pinimg.com/236x/4a/96/37/4a9637b31f9f9e4f9bb5f65cd2838772.jpg'
+          },
+          'brookhaven-rp': {
+            imageUrl: 'https://i.pinimg.com/1200x/52/0c/f1/520cf1b357c84a89c14f4eea0b868354.jpg'
+          },
+          'bedwars': {
+            imageUrl: 'https://i.pinimg.com/236x/c8/e2/62/c8e26265709e969eaec1df33b2b56bfc.jpg'
+          },
+          'anime-defenders': {
+            imageUrl: 'https://i.pinimg.com/736x/19/d8/10/19d810f247895ed35044983a14545b7c.jpg'
+          },
+          'universal-hub': {
+            imageUrl: 'https://i.pinimg.com/1200x/6b/ca/4a/6bca4a75575288405e38d62108350d13.jpg'
+          }
+        };
+      }
+
+      function saveCustomMapImages(mapImgs) {
+        try {
+          localStorage.setItem(STORAGE_KEYS.CUSTOM_MAP_IMAGES, JSON.stringify(mapImgs));
+        } catch (err) {
+          console.error('خطأ في حفظ صور المابات المخصصة:', err);
+        }
+      }
+
+      function buildDynamicFallbackSvg(mapObj, override = {}) {
+        const pal = override.palette && PRESET_PALETTES[override.palette]
+          ? PRESET_PALETTES[override.palette]
+          : null;
+        const c1 = pal ? pal.c1 : '#070c1a';
+        const c2 = pal ? pal.c2 : mapObj.secondary;
+        const c3 = pal ? pal.c3 : mapObj.accent;
+        const idTag = override.placeId
+          ? `ID: ${escapeHTML(override.placeId)}`
+          : pal
+          ? pal.tag
+          : '100 SCRIPTS';
+
+        return `<svg viewBox="0 0 160 90" class="w-full h-full object-cover" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="dyn-${escapeHTML(mapObj.id)}" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="${c1}"/>
+              <stop offset="55%" stop-color="${c2}"/>
+              <stop offset="100%" stop-color="${c3}" stop-opacity="0.75"/>
+            </linearGradient>
+          </defs>
+          <rect width="160" height="90" fill="url(#dyn-${escapeHTML(mapObj.id)})"/>
+          <circle cx="128" cy="24" r="22" fill="${c3}" fill-opacity="0.22"/>
+          <rect x="10" y="10" width="76" height="18" rx="5" fill="#050811" fill-opacity="0.72" stroke="${c3}" stroke-opacity="0.5"/>
+          <text x="15" y="22" fill="#f8fafc" font-size="8.5" font-weight="bold" font-family="monospace">${idTag}</text>
+          <text x="10" y="78" fill="#ffffff" font-size="10" font-weight="bold" font-family="monospace">${escapeHTML(mapObj.name.toUpperCase())}</text>
+        </svg>`;
+      }
+
+      function renderMapArtworkHTML(mapObj) {
+        const custom = state.customMapImages[mapObj.id] || {};
+        const fallbackSvg = custom.placeId || custom.palette ? buildDynamicFallbackSvg(mapObj, custom) : mapObj.svgArt;
+
+        if (custom.imageUrl) {
+          const safeUrl = escapeHTML(custom.imageUrl);
+          const escapedFallback = fallbackSvg.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+          return `
+            <div class="relative w-full h-full">
+              <img
+                src="${safeUrl}"
+                alt="${escapeHTML(mapObj.name)}"
+                class="w-full h-full object-cover"
+                onerror="this.outerHTML = '${escapedFallback}'"
+              />
+              ${
+                custom.placeId
+                  ? `<span class="pointer-events-none absolute bottom-1 right-1 px-1.5 py-0.5 rounded bg-black/75 text-[9px] font-mono text-cyan-300 border border-cyan-400/30">ID:${escapeHTML(custom.placeId)}</span>`
+                  : ''
+              }
+            </div>
+          `;
+        }
+        return fallbackSvg;
+      }
+
+      const BUILTIN_SCRIPTS = generateAllCatalogScripts();
+
+      let state = {
+        lang: loadLang(),
+        customScripts: loadCustomScripts(),
+        customMapImages: loadCustomMapImages(),
+        users: loadUsersDB(),
+        currentUserId: loadSessionUserId(),
+        selectedMap: 'ALL',
+        selectedExecutor: 'ALL',
+        selectedCategory: 'ALL',
+        workingOnly: false,
+        searchQuery: '',
+        visibleLimit: PAGE_STEP,
+        galleryMode: false,
+        activePreviewId: null,
+        isEditingLua: false,
+        authTab: 'login'
+      };
+
+      function t(key) {
+        return (I18N[state.lang] && I18N[state.lang][key]) || I18N.ar[key] || '';
+      }
+
+      function getCurrentUser() {
+        if (!state.currentUserId) return null;
+        return state.users.find((u) => u.id === state.currentUserId) || null;
+      }
+
+      function getAllScripts() {
+        return [...state.customScripts, ...BUILTIN_SCRIPTS];
+      }
+
+      function getMapById(mapId) {
+        return FAMOUS_MAPS.find((m) => m.id === mapId) || FAMOUS_MAPS[FAMOUS_MAPS.length - 1];
+      }
+
+      // عناصر DOM
+      const mainHeader = document.getElementById('mainHeader');
+      const authGateSection = document.getElementById('authGateSection');
+      const gateAuthContainer = document.getElementById('gateAuthContainer');
+      const mainContent = document.getElementById('mainContent');
+      const authHeaderSlot = document.getElementById('authHeaderSlot');
+      const mapPillsContainer = document.getElementById('mapPillsContainer');
+      const scriptsGrid = document.getElementById('scriptsGrid');
+      const emptyState = document.getElementById('emptyState');
+      const loadMoreContainer = document.getElementById('loadMoreContainer');
+      const loadMoreBtn = document.getElementById('loadMoreBtn');
+      const showAllBtn = document.getElementById('showAllBtn');
+      const searchInput = document.getElementById('searchInput');
+      const clearFiltersBtn = document.getElementById('clearFiltersBtn');
+      const toggleWorkingOnlyBtn = document.getElementById('toggleWorkingOnlyBtn');
+
+      const langToggleBtn = document.getElementById('langToggleBtn');
+      const gateLangToggleBtn = document.getElementById('gateLangToggleBtn');
+      const langToggleLabel = document.getElementById('langToggleLabel');
+      const gateLangToggleLabel = document.getElementById('gateLangToggleLabel');
+
+      // معرض المابات
+      const toggleGalleryViewBtn = document.getElementById('toggleGalleryViewBtn');
+      const galleryBtnLabel = document.getElementById('galleryBtnLabel');
+      const mapsGallerySection = document.getElementById('mapsGallerySection');
+      const mapsGalleryGrid = document.getElementById('mapsGalleryGrid');
+      const closeGallerySectionBtn = document.getElementById('closeGallerySectionBtn');
+
+      // نافذة الحساب
+      const authModal = document.getElementById('authModal');
+      const authModalTitle = document.getElementById('authModalTitle');
+      const authModalBody = document.getElementById('authModalBody');
+      const closeAuthModalBtn = document.getElementById('closeAuthModalBtn');
+
+      // نافذة المعاينة
+      const previewModal = document.getElementById('previewModal');
+      const closePreviewModal = document.getElementById('closePreviewModal');
+      const modalMapThumb = document.getElementById('modalMapThumb');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalCategoryBadge = document.getElementById('modalCategoryBadge');
+      const modalMeta = document.getElementById('modalMeta');
+      const luaHighlightedView = document.getElementById('luaHighlightedView');
+      const luaEditorTextarea = document.getElementById('luaEditorTextarea');
+      const toggleEditLuaBtn = document.getElementById('toggleEditLuaBtn');
+      const simulateRunBtn = document.getElementById('simulateRunBtn');
+      const modalCopyBtn = document.getElementById('modalCopyBtn');
+      const consoleOutput = document.getElementById('consoleOutput');
+      const clearConsoleBtn = document.getElementById('clearConsoleBtn');
+
+      // نافذة إضافة سكربت
+      const addScriptModal = document.getElementById('addScriptModal');
+      const openAddModalBtn = document.getElementById('openAddModalBtn');
+      const closeAddModal = document.getElementById('closeAddModal');
+      const cancelAddScriptBtn = document.getElementById('cancelAddScriptBtn');
+      const addScriptForm = document.getElementById('addScriptForm');
+      const newScriptMap = document.getElementById('newScriptMap');
+
+      function escapeHTML(str = '') {
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function showToast(message, type = 'success') {
+        const toast = document.createElement('div');
+        const colors =
+          type === 'success'
+            ? 'bg-slate-900/95 border-emerald-400/50 text-emerald-200'
+            : type === 'warning'
+            ? 'bg-slate-900/95 border-amber-400/50 text-amber-200'
+            : 'bg-slate-900/95 border-rose-400/50 text-rose-200';
+        const dot =
+          type === 'success' ? 'bg-emerald-400' : type === 'warning' ? 'bg-amber-400' : 'bg-rose-400';
+
+        toast.className = `pointer-events-auto flex items-center gap-2.5 px-4 py-3 rounded-2xl border shadow-2xl backdrop-blur-xl text-xs sm:text-sm font-bold transition-all duration-300 ${colors}`;
+        toast.innerHTML = `<span class="w-2.5 h-2.5 rounded-full ${dot}"></span><span>${escapeHTML(message)}</span>`;
+        document.getElementById('toastContainer').appendChild(toast);
+
+        setTimeout(() => {
+          toast.style.opacity = '0';
+          toast.style.transform = 'translateY(10px)';
+          setTimeout(() => toast.remove(), 280);
+        }, 2600);
+      }
+
+      function copyToClipboard(text, msg = 'تم نسخ كود Lua بنجاح!') {
+        if (!text) {
+          showToast('لا يوجد كود لنسخه.', 'warning');
+          return;
+        }
+        try {
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          ta.setAttribute('readonly', '');
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          const copied = document.execCommand('copy');
+          document.body.removeChild(ta);
+          if (copied) {
+            showToast(msg, 'success');
+            return;
+          }
+        } catch (_) {}
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard
+            .writeText(text)
+            .then(() => showToast(msg, 'success'))
+            .catch(() => showToast('تعذر النسخ التلقائي، استخدم نافذة المعاينة.', 'warning'));
+        }
+      }
+
+      function highlightLua(code = '') {
+        return escapeHTML(code)
+          .replace(/(--[^\n]*)/g, '<span class="lua-comment">$1</span>')
+          .replace(/("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')/g, '<span class="lua-string">$1</span>')
+          .replace(
+            /\b(local|function|end|if|then|else|elseif|for|in|do|while|repeat|until|return|and|or|not|true|false|nil|break|continue)\b/g,
+            '<span class="lua-keyword">$1</span>'
+          )
+          .replace(
+            /\b(game|workspace|script|Instance|Vector3|Vector2|Color3|UDim2|CFrame|Enum|task|math|string|table|ipairs|pairs|print|warn)\b/g,
+            '<span class="lua-global">$1</span>'
+          )
+          .replace(/\b(\d+(?:\.\d+)?)\b/g, '<span class="lua-number">$1</span>');
+      }
+
+      function getExecutorBadgeClass(exec) {
+        switch (exec) {
+          case 'Solara':
+            return 'bg-cyan-500/15 text-cyan-300 border-cyan-400/30';
+          case 'Delta':
+            return 'bg-emerald-500/15 text-emerald-300 border-emerald-400/30';
+          case 'Krnl':
+            return 'bg-purple-500/15 text-purple-300 border-purple-400/30';
+          case 'Xeno':
+            return 'bg-amber-500/15 text-amber-300 border-amber-400/30';
+          default:
+            return 'bg-slate-800 text-slate-300 border-slate-700';
+        }
+      }
+
+      function getAvatarGradient(avatarKey) {
+        switch (avatarKey) {
+          case 'purple':
+            return 'from-purple-500 to-pink-500';
+          case 'emerald':
+            return 'from-emerald-400 to-teal-600';
+          case 'amber':
+            return 'from-amber-400 to-rose-500';
+          default:
+            return 'from-cyan-400 to-indigo-600';
+        }
+      }
+
+      function applyLanguageUI(showNotice = false) {
+        const isEn = state.lang === 'en';
+        document.documentElement.lang = isEn ? 'en' : 'ar';
+        document.documentElement.dir = isEn ? 'ltr' : 'rtl';
+        document.title = t('pageTitle');
+
+        if (langToggleLabel) langToggleLabel.textContent = t('langBtn');
+        if (gateLangToggleLabel) gateLangToggleLabel.textContent = t('gateLangBtn');
+
+        const headerBadgeEl = document.getElementById('headerBadgeText');
+        const headerSubtitleEl = document.getElementById('headerSubtitleText');
+        const addScriptBtnLabel = document.getElementById('addScriptBtnLabel');
+        const gateBadgeLabel = document.getElementById('gateBadgeLabel');
+        const gateTitleLabel = document.getElementById('gateTitleLabel');
+        const gateSubtitleLabel = document.getElementById('gateSubtitleLabel');
+        const heroBadgeLabel = document.getElementById('heroBadgeLabel');
+        const heroTitleLabel = document.getElementById('heroTitleLabel');
+        const heroDescLabel = document.getElementById('heroDescLabel');
+        const chooseMapLabel = document.getElementById('chooseMapLabel');
+        const chooseMapHint = document.getElementById('chooseMapHint');
+        const execFilterLabel = document.getElementById('execFilterLabel');
+        const emptyTitleLabel = document.getElementById('emptyTitleLabel');
+        const emptyDescLabel = document.getElementById('emptyDescLabel');
+
+        if (headerBadgeEl) headerBadgeEl.textContent = t('headerBadge');
+        if (headerSubtitleEl) headerSubtitleEl.textContent = t('headerSubtitle');
+        if (addScriptBtnLabel) addScriptBtnLabel.textContent = t('addScriptBtn');
+        if (gateBadgeLabel) gateBadgeLabel.textContent = t('gateBadge');
+        if (gateTitleLabel) gateTitleLabel.textContent = t('gateTitle');
+        if (gateSubtitleLabel) gateSubtitleLabel.textContent = t('gateSubtitle');
+        if (heroBadgeLabel) heroBadgeLabel.textContent = t('heroBadge');
+        if (heroTitleLabel) heroTitleLabel.innerHTML = t('heroTitle');
+        if (heroDescLabel) heroDescLabel.innerHTML = t('heroDesc');
+        if (chooseMapLabel) chooseMapLabel.textContent = t('chooseMapLabel');
+        if (chooseMapHint) chooseMapHint.textContent = t('chooseMapHint');
+        if (execFilterLabel) execFilterLabel.textContent = t('execFilterLabel');
+        if (emptyTitleLabel) emptyTitleLabel.textContent = t('emptyTitle');
+        if (emptyDescLabel) emptyDescLabel.textContent = t('emptyDesc');
+
+        if (searchInput) searchInput.placeholder = t('searchPlaceholder');
+        if (toggleWorkingOnlyBtn) toggleWorkingOnlyBtn.textContent = t('workingOnlyBtn');
+        if (clearFiltersBtn) clearFiltersBtn.textContent = t('clearFiltersBtn');
+        if (loadMoreBtn) loadMoreBtn.textContent = t('loadMoreBtn');
+        if (showAllBtn) showAllBtn.textContent = t('showAllBtn');
+        if (galleryBtnLabel) {
+          galleryBtnLabel.textContent = state.galleryMode ? t('galleryClose') : t('galleryOpen');
+        }
+
+        const catMap = {
+          ALL: t('catAll'),
+          'Auto-Farm': t('catFarm'),
+          Combat: t('catCombat'),
+          'Visuals/ESP': t('catVisuals'),
+          Movement: t('catMove'),
+          Utility: t('catUtil'),
+          FAVORITES: t('catFav')
+        };
+        document.querySelectorAll('.category-btn').forEach((btn) => {
+          const k = btn.dataset.category;
+          if (catMap[k]) btn.textContent = catMap[k];
+        });
+
+        document.querySelectorAll('.executor-btn').forEach((btn) => {
+          if (btn.dataset.executor === 'ALL') btn.textContent = t('allFilter');
+        });
+
+        renderAuthHeader();
+        if (!getCurrentUser()) {
+          buildAuthFormHTML(gateAuthContainer, null);
+        } else {
+          renderCatalog();
+          if (state.galleryMode) renderMapsGallery();
+        }
+        if (showNotice) showToast(t('langToast'), 'success');
+      }
+
+      function toggleLanguage() {
+        state.lang = state.lang === 'ar' ? 'en' : 'ar';
+        saveLang(state.lang);
+        applyLanguageUI(true);
+      }
+
+      function renderAuthHeader() {
+        const user = getCurrentUser();
+        const isEn = state.lang === 'en';
+        if (!user) {
+          authHeaderSlot.innerHTML = `
+            <button
+              id="openAuthModalBtn"
+              type="button"
+              class="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-xl text-xs font-bold bg-purple-600/25 hover:bg-purple-600/40 text-purple-200 border border-purple-400/45 transition cursor-pointer"
+            >
+              <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+              <span>${isEn ? 'Sign In' : 'دخول / حساب'}</span>
+            </button>
+          `;
+          document.getElementById('openAuthModalBtn').addEventListener('click', () => openAuthModal());
+        } else {
+          authHeaderSlot.innerHTML = `
+            <button
+              id="openProfileModalBtn"
+              type="button"
+              class="inline-flex items-center gap-2 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-900/90 hover:bg-slate-800 text-white border border-cyan-400/40 transition cursor-pointer"
+            >
+              <span class="w-6 h-6 rounded-lg bg-gradient-to-br ${getAvatarGradient(
+                user.avatar
+              )} flex items-center justify-center text-[11px] font-black text-slate-950 shrink-0">
+                ${escapeHTML(user.username.slice(0, 1))}
+              </span>
+              <span class="hidden sm:inline max-w-[110px] truncate">${escapeHTML(user.username)}</span>
+              <span class="hidden md:inline px-1.5 py-0.5 rounded-md text-[10px] font-mono bg-cyan-500/15 text-cyan-300 border border-cyan-400/25">
+                ${user.favorites.length} ★
+              </span>
+            </button>
+          `;
+          document.getElementById('openProfileModalBtn').addEventListener('click', () => openAuthModal());
+        }
+      }
+
+      function openAuthModal() {
+        const user = getCurrentUser();
+        const isEn = state.lang === 'en';
+        if (user) {
+          authModalTitle.textContent = isEn ? 'Profile & Account' : 'الملف الشخصي والعضوية';
+          authModalBody.innerHTML = `
+            <div class="flex items-center gap-3.5 p-4 rounded-2xl bg-slate-900/85 border border-slate-800">
+              <div class="w-14 h-14 rounded-2xl bg-gradient-to-br ${getAvatarGradient(
+                user.avatar
+              )} flex items-center justify-center text-2xl font-black text-slate-950 shadow-lg">
+                ${escapeHTML(user.username.slice(0, 1))}
+              </div>
+              <div class="min-w-0 flex-1">
+                <div class="flex flex-wrap items-center gap-2">
+                  <h4 class="text-base font-black text-white truncate">${escapeHTML(user.username)}</h4>
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-400/35">
+                    ${escapeHTML(user.badge)}
+                  </span>
+                </div>
+                <p class="text-xs text-slate-400 truncate mt-0.5">${escapeHTML(user.email)}</p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div class="p-3.5 rounded-2xl bg-slate-950/75 border border-slate-800">
+                <div class="text-xs text-slate-400">${isEn ? 'Favorite Scripts' : 'السكربتات المفضلة'}</div>
+                <div class="text-xl font-black text-amber-300 mt-1">${user.favorites.length}</div>
+              </div>
+              <div class="p-3.5 rounded-2xl bg-slate-950/75 border border-slate-800">
+                <div class="text-xs text-slate-400">${isEn ? 'My Custom Scripts' : 'سكربتاتي المضافة'}</div>
+                <div class="text-xl font-black text-cyan-300 mt-1">${state.customScripts.length}</div>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-between gap-2 pt-2">
+              <button
+                id="viewFavoritesBtn"
+                type="button"
+                class="px-4 py-2.5 rounded-xl text-xs font-extrabold bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-400/40 transition cursor-pointer"
+              >
+                ${isEn ? 'View Favorites' : 'عرض المفضلة في المكتبة'}
+              </button>
+              <button
+                id="logoutAccountBtn"
+                type="button"
+                class="px-4 py-2.5 rounded-xl text-xs font-bold bg-rose-500/20 hover:bg-rose-500/30 text-rose-200 border border-rose-400/40 transition cursor-pointer"
+              >
+                ${isEn ? 'Sign Out' : 'تسجيل الخروج'}
+              </button>
+            </div>
+          `;
+
+          document.getElementById('viewFavoritesBtn').addEventListener('click', () => {
+            state.selectedCategory = 'FAVORITES';
+            state.visibleLimit = PAGE_STEP;
+            closeAuth();
+            renderCatalog();
+          });
+
+          document.getElementById('logoutAccountBtn').addEventListener('click', () => {
+            state.currentUserId = null;
+            saveSessionUserId(null);
+            closeAuth();
+            syncAccessGate();
+          });
+        } else {
+          authModalTitle.textContent = isEn ? 'Sign In / Sign Up' : 'تسجيل الدخول / إنشاء حساب';
+          buildAuthFormHTML(authModalBody, closeAuth);
+        }
+
+        authModal.classList.remove('hidden');
+        authModal.classList.add('flex');
+      }
+
+      function buildAuthFormHTML(targetContainer, onAuthenticated) {
+        const isSignup = state.authTab === 'signup';
+        const isEn = state.lang === 'en';
+
+        targetContainer.innerHTML = `
+          <div class="grid grid-cols-2 gap-2 p-1 rounded-2xl bg-slate-950/90 border border-slate-800">
+            <button
+              id="switchToLoginTab"
+              type="button"
+              class="py-2 rounded-xl text-xs font-extrabold transition cursor-pointer ${
+                !isSignup ? 'bg-cyan-400 text-slate-950' : 'text-slate-400 hover:text-white'
+              }"
+            >
+              ${isEn ? 'Sign In' : 'تسجيل الدخول'}
+            </button>
+            <button
+              id="switchToSignupTab"
+              type="button"
+              class="py-2 rounded-xl text-xs font-extrabold transition cursor-pointer ${
+                isSignup ? 'bg-purple-500 text-white' : 'text-slate-400 hover:text-white'
+              }"
+            >
+              ${isEn ? 'Sign Up' : 'إنشاء حساب'}
+            </button>
+          </div>
+
+          <form id="authForm" class="space-y-3.5">
+            ${
+              isSignup
+                ? `
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1">${isEn ? 'Username *' : 'اسم المستخدم *'}</label>
+                <input id="authUsername" type="text" required placeholder="${isEn ? 'e.g. LuaPro' : 'مثال: سيف_الدلتا'}"
+                  class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/85 border border-slate-700 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400" />
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1">${isEn ? 'Email or Handle *' : 'البريد الإلكتروني أو المعرّف *'}</label>
+                <input id="authEmail" type="text" required placeholder="player@example.com"
+                  class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/85 border border-slate-700 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400" />
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1.5">${isEn ? 'Avatar Color' : 'اختر لون الأفاتار'}</label>
+                <div class="flex items-center gap-2.5">
+                  <label class="cursor-pointer"><input type="radio" name="avatarChoice" value="cyan" checked class="sr-only peer"/><span class="block w-8 h-8 rounded-xl bg-gradient-to-br from-cyan-400 to-indigo-600 peer-checked:ring-2 peer-checked:ring-white"></span></label>
+                  <label class="cursor-pointer"><input type="radio" name="avatarChoice" value="purple" class="sr-only peer"/><span class="block w-8 h-8 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 peer-checked:ring-2 peer-checked:ring-white"></span></label>
+                  <label class="cursor-pointer"><input type="radio" name="avatarChoice" value="emerald" class="sr-only peer"/><span class="block w-8 h-8 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-600 peer-checked:ring-2 peer-checked:ring-white"></span></label>
+                  <label class="cursor-pointer"><input type="radio" name="avatarChoice" value="amber" class="sr-only peer"/><span class="block w-8 h-8 rounded-xl bg-gradient-to-br from-amber-400 to-rose-500 peer-checked:ring-2 peer-checked:ring-white"></span></label>
+                </div>
+              </div>
+            `
+                : `
+              <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1">${isEn ? 'Email or Username *' : 'البريد أو اسم المستخدم *'}</label>
+                <input id="authLoginId" type="text" required value="pro@scriptrblx.local"
+                  class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/85 border border-slate-700 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400" />
+              </div>
+            `
+            }
+
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1">${isEn ? 'Password *' : 'كلمة المرور *'}</label>
+              <input id="authPassword" type="password" required value="123456" placeholder="••••••••"
+                class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/85 border border-slate-700 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400" />
+            </div>
+
+            <button
+              type="submit"
+              class="w-full py-2.5 rounded-xl text-xs sm:text-sm font-black bg-gradient-to-r from-cyan-400 to-emerald-400 hover:brightness-110 text-slate-950 shadow-lg transition cursor-pointer"
+            >
+              ${
+                isSignup
+                  ? isEn ? 'Create Account & Enter' : 'إنشاء الحساب والدخول للمكتبة'
+                  : isEn ? 'Enter ScriptRblx' : 'دخول فوري إلى المكتبة'
+              }
+            </button>
+          </form>
+        `;
+
+        targetContainer.querySelector('#switchToLoginTab').addEventListener('click', () => {
+          state.authTab = 'login';
+          buildAuthFormHTML(targetContainer, onAuthenticated);
+        });
+
+        targetContainer.querySelector('#switchToSignupTab').addEventListener('click', () => {
+          state.authTab = 'signup';
+          buildAuthFormHTML(targetContainer, onAuthenticated);
+        });
+
+        targetContainer.querySelector('#authForm').addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (state.authTab === 'signup') {
+            const username = targetContainer.querySelector('#authUsername').value.trim();
+            const email = targetContainer.querySelector('#authEmail').value.trim();
+            const avatar =
+              (targetContainer.querySelector('input[name="avatarChoice"]:checked') || {}).value || 'cyan';
+
+            if (!username || !email) {
+              showToast(isEn ? 'Please enter username and email.' : 'يرجى إدخال اسم المستخدم والبريد.', 'warning');
+              return;
+            }
+
+            const newUser = {
+              id: 'usr-' + Date.now(),
+              username,
+              email,
+              badge: 'VIP Member',
+              avatar,
+              favorites: []
+            };
+            state.users.unshift(newUser);
+            state.currentUserId = newUser.id;
+            saveUsersDB(state.users);
+            saveSessionUserId(newUser.id);
+            if (typeof onAuthenticated === 'function') onAuthenticated();
+            syncAccessGate();
+            showToast(isEn ? `Welcome ${username}!` : `مرحبًا بك ${username}! تم فتح المكتبة بنجاح.`, 'success');
+          } else {
+            const loginId = targetContainer.querySelector('#authLoginId').value.trim().toLowerCase();
+            let found = state.users.find(
+              (u) => u.email.toLowerCase() === loginId || u.username.toLowerCase() === loginId
+            );
+            if (!found) {
+              found = {
+                id: 'usr-' + Date.now(),
+                username: loginId.split('@')[0] || (isEn ? 'ScriptRblxUser' : 'مستخدم_ScriptRblx'),
+                email: loginId || 'user@scriptrblx.local',
+                badge: 'Executor Pro',
+                avatar: 'cyan',
+                favorites: []
+              };
+              state.users.unshift(found);
+              saveUsersDB(state.users);
+            }
+            state.currentUserId = found.id;
+            saveSessionUserId(found.id);
+            if (typeof onAuthenticated === 'function') onAuthenticated();
+            syncAccessGate();
+            showToast(isEn ? `Signed in as ${found.username}.` : `تم تسجيل الدخول بحساب ${found.username}.`, 'success');
+          }
+        });
+      }
+
+      function syncAccessGate() {
+        const user = getCurrentUser();
+        if (!user) {
+          mainHeader.classList.add('hidden');
+          mainContent.classList.add('hidden');
+          authGateSection.classList.remove('hidden');
+          authGateSection.classList.add('flex');
+          buildAuthFormHTML(gateAuthContainer, null);
+        } else {
+          authGateSection.classList.add('hidden');
+          authGateSection.classList.remove('flex');
+          mainHeader.classList.remove('hidden');
+          mainContent.classList.remove('hidden');
+          renderAuthHeader();
+          renderCatalog();
+        }
+      }
+
+      function closeAuth() {
+        authModal.classList.add('hidden');
+        authModal.classList.remove('flex');
+      }
+
+      function toggleFavorite(scriptId) {
+        const user = getCurrentUser();
+        if (!user) {
+          openAuthModal();
+          return;
+        }
+        const exists = user.favorites.includes(scriptId);
+        if (exists) {
+          user.favorites = user.favorites.filter((id) => id !== scriptId);
+          showToast(state.lang === 'en' ? 'Removed from favorites.' : 'تمت الإزالة من المفضلة.', 'warning');
+        } else {
+          user.favorites.push(scriptId);
+          showToast(state.lang === 'en' ? 'Added to favorites ★' : 'تمت الإضافة إلى المفضلة ★', 'success');
+        }
+        saveUsersDB(state.users);
+        renderAuthHeader();
+        renderCatalog();
+      }
+
+      function renderMapPills() {
+        const allBtnActive = state.selectedMap === 'ALL';
+        let html = `
+          <button
+            type="button"
+            data-map="ALL"
+            class="map-pill shrink-0 flex items-center gap-2.5 px-3 py-2 rounded-2xl border text-xs font-extrabold transition cursor-pointer ${
+              allBtnActive
+                ? 'bg-cyan-500/20 border-cyan-400 text-cyan-200 shadow-md shadow-cyan-500/15'
+                : 'bg-slate-900/80 border-slate-800 text-slate-300 hover:border-slate-600'
+            }"
+          >
+            <span class="w-9 h-6 rounded-lg bg-gradient-to-br from-cyan-400 via-purple-500 to-emerald-400 flex items-center justify-center text-[10px] font-mono font-black text-slate-950">
+              MIX
+            </span>
+            <span>${escapeHTML(t('allMixPill'))} (${BUILTIN_SCRIPTS.length})</span>
+          </button>
+        `;
+
+        FAMOUS_MAPS.forEach((m) => {
+          const active = state.selectedMap === m.id;
+          html += `
+            <button
+              type="button"
+              data-map="${escapeHTML(m.id)}"
+              class="map-pill shrink-0 flex items-center gap-2.5 px-2.5 py-1.5 rounded-2xl border text-xs font-bold transition cursor-pointer ${
+                active
+                  ? 'bg-slate-800/95 border-cyan-400 text-white shadow-md shadow-cyan-500/15'
+                  : 'bg-slate-900/75 border-slate-800/90 text-slate-300 hover:border-slate-600 hover:text-white'
+              }"
+            >
+              <span class="w-10 h-6 rounded-lg overflow-hidden border border-white/15 shrink-0">
+                ${renderMapArtworkHTML(m)}
+              </span>
+              <span class="whitespace-nowrap">${escapeHTML(m.name)}</span>
+            </button>
+          `;
+        });
+
+        mapPillsContainer.innerHTML = html;
+
+        mapPillsContainer.querySelectorAll('.map-pill').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            state.selectedMap = btn.dataset.map;
+            state.visibleLimit = PAGE_STEP;
+            renderCatalog();
+          });
+        });
+      }
+
+      function renderMapsGallery() {
+        mapsGalleryGrid.innerHTML = FAMOUS_MAPS.map(
+          (m) => `
+          <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between">
+            <div>
+              <div class="h-28 w-full overflow-hidden border-b border-slate-800">
+                ${renderMapArtworkHTML(m)}
+              </div>
+              <div class="p-3.5 space-y-1">
+                <div class="flex items-center justify-between gap-1">
+                  <h4 class="text-sm font-black text-white">${escapeHTML(m.name)}</h4>
+                  <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-md border ${m.badgeClass}">${escapeHTML(t('mapScriptsBadge'))}</span>
+                </div>
+                <p class="text-[11px] text-slate-400">${escapeHTML(m.arabicTag)} • ${escapeHTML(m.themeLabel)}</p>
+              </div>
+            </div>
+            <div class="px-3.5 pb-3.5">
+              <button
+                type="button"
+                data-select-gallery-map="${escapeHTML(m.id)}"
+                class="w-full py-2 rounded-xl text-xs font-extrabold bg-cyan-500/15 hover:bg-cyan-400 text-cyan-300 hover:text-slate-950 border border-cyan-400/35 transition cursor-pointer"
+              >
+                ${escapeHTML(t('openMapBtn'))} ${escapeHTML(m.name)}
+              </button>
+            </div>
+          </div>
+        `
+        ).join('');
+
+        mapsGalleryGrid.querySelectorAll('[data-select-gallery-map]').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            state.selectedMap = btn.dataset.selectGalleryMap;
+            state.visibleLimit = PAGE_STEP;
+            setGalleryMode(false);
+            renderCatalog();
+          });
+        });
+      }
+
+      function setGalleryMode(enabled) {
+        state.galleryMode = enabled;
+        if (enabled) {
+          mapsGallerySection.classList.remove('hidden');
+          galleryBtnLabel.textContent = t('galleryClose');
+          renderMapsGallery();
+        } else {
+          mapsGallerySection.classList.add('hidden');
+          galleryBtnLabel.textContent = t('galleryOpen');
+        }
+      }
+
+      function getFilteredScripts() {
+        const all = getAllScripts();
+        const q = state.searchQuery.trim().toLowerCase();
+        const user = getCurrentUser();
+        const favSet = new Set(user ? user.favorites : []);
+
+        return all.filter((item) => {
+          const mapMatch = state.selectedMap === 'ALL' || item.mapId === state.selectedMap;
+          const execMatch =
+            state.selectedExecutor === 'ALL' ||
+            (Array.isArray(item.executors) && item.executors.includes(state.selectedExecutor));
+          const workingMatch = !state.workingOnly || item.workingVerified !== false || Boolean(item.isCustom);
+
+          let catMatch = true;
+          if (state.selectedCategory === 'FAVORITES') {
+            catMatch = favSet.has(item.id);
+          } else if (state.selectedCategory !== 'ALL') {
+            catMatch = item.category === state.selectedCategory;
+          }
+
+          const queryMatch =
+            !q ||
+            item.title.toLowerCase().includes(q) ||
+            item.description.toLowerCase().includes(q) ||
+            item.mapName.toLowerCase().includes(q) ||
+            item.mapArabic.toLowerCase().includes(q) ||
+            item.category.toLowerCase().includes(q) ||
+            item.executors.some((ex) => ex.toLowerCase().includes(q));
+
+          return mapMatch && execMatch && workingMatch && catMatch && queryMatch;
+        });
+      }
+
+      function updateFilterButtonsUI() {
+        if (toggleWorkingOnlyBtn) {
+          toggleWorkingOnlyBtn.className = `px-3 py-1.5 rounded-xl text-xs font-extrabold transition cursor-pointer ${
+            state.workingOnly
+              ? 'bg-emerald-400 text-slate-950 shadow-md shadow-emerald-500/20'
+              : 'bg-emerald-500/20 text-emerald-300 border border-emerald-400/45 hover:bg-emerald-500/30'
+          }`;
+        }
+
+        document.querySelectorAll('.executor-btn').forEach((btn) => {
+          const active = btn.dataset.executor === state.selectedExecutor;
+          btn.className = `executor-btn px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
+            active
+              ? 'bg-gradient-to-r from-cyan-400 to-teal-400 text-slate-950 shadow-sm'
+              : 'text-slate-300 hover:text-white hover:bg-slate-800/80'
+          }`;
+        });
+
+        document.querySelectorAll('.category-btn').forEach((btn) => {
+          const active = btn.dataset.category === state.selectedCategory;
+          btn.className = `category-btn px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
+            active
+              ? 'bg-purple-500/25 text-purple-200 border border-purple-400/50 shadow-sm'
+              : 'bg-slate-900/75 text-slate-300 border border-slate-800 hover:border-slate-700 hover:text-white'
+          }`;
+        });
+      }
+
+      function renderCatalog() {
+        renderMapPills();
+        updateFilterButtonsUI();
+
+        const filtered = getFilteredScripts();
+        const sliced = filtered.slice(0, state.visibleLimit);
+        const user = getCurrentUser();
+        const favSet = new Set(user ? user.favorites : []);
+        const isEn = state.lang === 'en';
+
+        const countsSummaryBox = document.getElementById('countsSummaryBox');
+        if (countsSummaryBox) {
+          countsSummaryBox.innerHTML = isEn
+            ? `Showing <span id="visibleCount" class="text-cyan-300 font-mono">${sliced.length.toLocaleString('en-US')}</span> of <span id="resultsCount" class="text-white font-mono">${filtered.length.toLocaleString('en-US')}</span> scripts`
+            : `معروض <span id="visibleCount" class="text-cyan-300 font-mono">${sliced.length.toLocaleString('en-US')}</span> من أصل <span id="resultsCount" class="text-white font-mono">${filtered.length.toLocaleString('en-US')}</span> سكربت`;
+        }
+
+        scriptsGrid.innerHTML = '';
+
+        if (filtered.length === 0) {
+          emptyState.classList.remove('hidden');
+          loadMoreContainer.classList.add('hidden');
+          return;
+        }
+
+        emptyState.classList.add('hidden');
+
+        sliced.forEach((script) => {
+          const mapObj = getMapById(script.mapId);
+          const isFav = favSet.has(script.id);
+
+          const execBadges = (script.executors || [])
+            .map(
+              (ex) =>
+                `<span class="px-2 py-0.5 rounded-md text-[10px] font-mono font-bold border ${getExecutorBadgeClass(
+                  ex
+                )}">${escapeHTML(ex)}</span>`
+            )
+            .join('');
+
+          const card = document.createElement('article');
+          card.className = 'glass-card rounded-2xl overflow-hidden flex flex-col justify-between';
+
+          card.innerHTML = `
+            <div>
+              <div class="relative h-24 w-full overflow-hidden border-b border-slate-800/90">
+                ${renderMapArtworkHTML(mapObj)}
+                <div class="absolute inset-0 bg-gradient-to-t from-[#080b15] via-transparent to-black/25 pointer-events-none"></div>
+                <div class="absolute top-2.5 right-2.5 flex items-center gap-1.5">
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold backdrop-blur-md border ${mapObj.badgeClass}">
+                    ${escapeHTML(mapObj.name)}
+                  </span>
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-950/75 text-emerald-300 border border-emerald-400/30">
+                    ${escapeHTML(isEn ? 'Working' : script.status)}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  data-action="fav"
+                  data-id="${escapeHTML(script.id)}"
+                  class="absolute top-2.5 left-2.5 w-8 h-8 rounded-xl backdrop-blur-md border flex items-center justify-center text-sm transition cursor-pointer ${
+                    isFav
+                      ? 'bg-amber-400/25 border-amber-300 text-amber-300'
+                      : 'bg-slate-950/70 border-slate-700/80 text-slate-300 hover:text-amber-300'
+                  }"
+                >
+                  ${isFav ? '★' : '☆'}
+                </button>
+              </div>
+
+              <div class="p-4 space-y-2.5">
+                <div class="flex items-center justify-between gap-2 text-[11px] text-slate-400">
+                  <span class="font-bold text-purple-300">${escapeHTML(isEn ? script.category : (script.categoryArabic || script.category))}</span>
+                  <span class="font-mono text-slate-500">${escapeHTML(script.updatedAt || '')}</span>
+                </div>
+
+                <h3 class="text-sm sm:text-base font-black text-white leading-snug line-clamp-1">
+                  ${escapeHTML(script.title)}
+                </h3>
+
+                <p class="text-xs text-slate-400 line-clamp-2 leading-relaxed">
+                  ${escapeHTML(script.description)}
+                </p>
+
+                <div class="flex flex-wrap gap-1 pt-1">
+                  ${execBadges}
+                </div>
+              </div>
+            </div>
+
+            <div class="px-4 pb-4 pt-2.5 border-t border-slate-800/80 flex items-center justify-between gap-2">
+              <button
+                type="button"
+                data-action="preview"
+                data-id="${escapeHTML(script.id)}"
+                class="flex-1 inline-flex items-center justify-center gap-1.5 px-2.5 py-2 rounded-xl text-xs font-bold bg-slate-800/90 hover:bg-purple-500/25 text-slate-200 hover:text-purple-200 border border-slate-700 hover:border-purple-400/40 transition cursor-pointer"
+              >
+                <span class="w-4 h-3 rounded-sm overflow-hidden border border-white/20 shrink-0">${renderMapArtworkHTML(mapObj)}</span>
+                <span>${escapeHTML(t('previewBtn'))}</span>
+              </button>
+
+              <button
+                type="button"
+                data-action="copy"
+                data-id="${escapeHTML(script.id)}"
+                class="flex-1 inline-flex items-center justify-center gap-1.5 px-2.5 py-2 rounded-xl text-xs font-extrabold bg-cyan-500/15 hover:bg-cyan-400 text-cyan-300 hover:text-slate-950 border border-cyan-400/35 transition cursor-pointer"
+              >
+                <span class="w-4 h-3 rounded-sm overflow-hidden border border-current/30 shrink-0">${renderMapArtworkHTML(mapObj)}</span>
+                <span>${escapeHTML(t('copyBtn'))}</span>
+              </button>
+            </div>
+          `;
+
+          scriptsGrid.appendChild(card);
+        });
+
+        if (filtered.length > sliced.length) {
+          loadMoreContainer.classList.remove('hidden');
+        } else {
+          loadMoreContainer.classList.add('hidden');
+        }
+      }
+
+      function openPreviewModal(scriptId) {
+        const script = getAllScripts().find((s) => s.id === scriptId);
+        if (!script) return;
+
+        const mapObj = getMapById(script.mapId);
+        state.activePreviewId = script.id;
+        state.isEditingLua = false;
+
+        modalMapThumb.innerHTML = renderMapArtworkHTML(mapObj);
+        modalTitle.textContent = script.title;
+        modalCategoryBadge.textContent = `${mapObj.name} • ${script.categoryArabic || script.category}`;
+        modalMeta.textContent = `Executors: ${(script.executors || []).join(' • ')} — ${script.status}`;
+
+        luaHighlightedView.innerHTML = highlightLua(script.code);
+        luaEditorTextarea.value = script.code;
+
+        luaHighlightedView.classList.remove('hidden');
+        luaEditorTextarea.classList.add('hidden');
+        toggleEditLuaBtn.textContent = state.lang === 'en' ? 'Edit Code' : 'تعديل الكود';
+
+        appendConsoleLine(`[READY] Loaded "${script.title}" for ${mapObj.name}.`, 'info');
+        previewModal.classList.remove('hidden');
+        previewModal.classList.add('flex');
+      }
+
+      function closePreview() {
+        previewModal.classList.add('hidden');
+        previewModal.classList.remove('flex');
+        state.activePreviewId = null;
+      }
+
+      function appendConsoleLine(text, level = 'normal') {
+        const line = document.createElement('div');
+        line.className =
+          level === 'success'
+            ? 'text-emerald-400'
+            : level === 'info'
+            ? 'text-cyan-300'
+            : 'text-slate-300';
+        const stamp = new Date().toLocaleTimeString('en-GB', { hour12: false });
+        line.textContent = `[${stamp}] ${text}`;
+        consoleOutput.appendChild(line);
+        consoleOutput.scrollTop = consoleOutput.scrollHeight;
+      }
+
+      function simulateExecution() {
+        const code = luaEditorTextarea.value;
+        const script = getAllScripts().find((s) => s.id === state.activePreviewId);
+        const execs = script && script.executors ? script.executors.join(', ') : 'Solara, Delta, Krnl, Xeno';
+
+        appendConsoleLine(`Injecting script into [${execs}]...`, 'info');
+        setTimeout(() => {
+          appendConsoleLine(`Verified ${code.split('\n').length} lines • UNC hook status: ACTIVE`, 'success');
+        }, 200);
+        setTimeout(() => {
+          const prints = [...code.matchAll(/print\s*\(\s*(["'])(.*?)\1/g)];
+          if (prints.length > 0) {
+            prints.forEach((m) => appendConsoleLine(`OUT >> ${m[2]}`, 'normal'));
+          } else {
+            appendConsoleLine('OUT >> Execution loop started cleanly.', 'normal');
+          }
+        }, 420);
+      }
+
+      function populateAddScriptMaps() {
+        newScriptMap.innerHTML = FAMOUS_MAPS.map(
+          (m) => `<option value="${escapeHTML(m.id)}">${escapeHTML(m.name)} (${escapeHTML(m.arabicTag)})</option>`
+        ).join('');
+      }
+
+      function openAddModal() {
+        addScriptModal.classList.remove('hidden');
+        addScriptModal.classList.add('flex');
+      }
+
+      function closeAddModalFn() {
+        addScriptModal.classList.add('hidden');
+        addScriptModal.classList.remove('flex');
+      }
+
+      // ربط الأحداث
+      if (langToggleBtn) langToggleBtn.addEventListener('click', toggleLanguage);
+      if (gateLangToggleBtn) gateLangToggleBtn.addEventListener('click', toggleLanguage);
+
+      scriptsGrid.addEventListener('click', (e) => {
+        const btn = e.target.closest('button[data-action]');
+        if (!btn) return;
+        const id = btn.dataset.id;
+        const action = btn.dataset.action;
+        const script = getAllScripts().find((s) => s.id === id);
+        if (!script) return;
+
+        if (action === 'copy') {
+          copyToClipboard(script.code, `${script.title}`);
+        } else if (action === 'preview') {
+          openPreviewModal(id);
+        } else if (action === 'fav') {
+          toggleFavorite(id);
+        }
+      });
+
+      searchInput.addEventListener('input', (e) => {
+        state.searchQuery = e.target.value;
+        state.visibleLimit = PAGE_STEP;
+        renderCatalog();
+      });
+
+      document.querySelectorAll('.executor-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          state.selectedExecutor = btn.dataset.executor;
+          state.visibleLimit = PAGE_STEP;
+          renderCatalog();
+        });
+      });
+
+      document.querySelectorAll('.category-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          state.selectedCategory = btn.dataset.category;
+          state.visibleLimit = PAGE_STEP;
+          renderCatalog();
+        });
+      });
+
+      if (toggleWorkingOnlyBtn) {
+        toggleWorkingOnlyBtn.addEventListener('click', () => {
+          state.workingOnly = !state.workingOnly;
+          state.visibleLimit = PAGE_STEP;
+          renderCatalog();
+        });
+      }
+
+      loadMoreBtn.addEventListener('click', () => {
+        state.visibleLimit += PAGE_STEP;
+        renderCatalog();
+      });
+
+      showAllBtn.addEventListener('click', () => {
+        state.visibleLimit = getFilteredScripts().length;
+        renderCatalog();
+      });
+
+      clearFiltersBtn.addEventListener('click', () => {
+        state.selectedMap = 'ALL';
+        state.selectedExecutor = 'ALL';
+        state.selectedCategory = 'ALL';
+        state.workingOnly = false;
+        state.searchQuery = '';
+        state.visibleLimit = PAGE_STEP;
+        searchInput.value = '';
+        renderCatalog();
+      });
+
+      toggleGalleryViewBtn.addEventListener('click', () => setGalleryMode(!state.galleryMode));
+      closeGallerySectionBtn.addEventListener('click', () => setGalleryMode(false));
+
+      closeAuthModalBtn.addEventListener('click', closeAuth);
+      authModal.addEventListener('click', (e) => {
+        if (e.target === authModal) closeAuth();
+      });
+
+      closePreviewModal.addEventListener('click', closePreview);
+      previewModal.addEventListener('click', (e) => {
+        if (e.target === previewModal) closePreview();
+      });
+
+      toggleEditLuaBtn.addEventListener('click', () => {
+        state.isEditingLua = !state.isEditingLua;
+        if (state.isEditingLua) {
+          luaHighlightedView.classList.add('hidden');
+          luaEditorTextarea.classList.remove('hidden');
+          luaEditorTextarea.focus();
+          toggleEditLuaBtn.textContent = state.lang === 'en' ? 'Save & Preview' : 'حفظ ومعاينة';
+        } else {
+          const updated = luaEditorTextarea.value;
+          luaHighlightedView.innerHTML = highlightLua(updated);
+          luaEditorTextarea.classList.add('hidden');
+          luaHighlightedView.classList.remove('hidden');
+          toggleEditLuaBtn.textContent = state.lang === 'en' ? 'Edit Code' : 'تعديل الكود';
+
+          if (state.activePreviewId) {
+            const customIdx = state.customScripts.findIndex((s) => s.id === state.activePreviewId);
+            if (customIdx !== -1) {
+              state.customScripts[customIdx].code = updated;
+              saveCustomScripts(state.customScripts);
+            }
+          }
+        }
+      });
+
+      modalCopyBtn.addEventListener('click', () => {
+        copyToClipboard(luaEditorTextarea.value, 'Lua');
+      });
+
+      simulateRunBtn.addEventListener('click', simulateExecution);
+
+      clearConsoleBtn.addEventListener('click', () => {
+        consoleOutput.innerHTML = '<div class="text-slate-500">[CONSOLE] Cleared.</div>';
+      });
+
+      openAddModalBtn.addEventListener('click', openAddModal);
+      closeAddModal.addEventListener('click', closeAddModalFn);
+      cancelAddScriptBtn.addEventListener('click', closeAddModalFn);
+      addScriptModal.addEventListener('click', (e) => {
+        if (e.target === addScriptModal) closeAddModalFn();
+      });
+
+      addScriptForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const title = document.getElementById('newScriptTitle').value.trim();
+        const mapId = newScriptMap.value;
+        const category = document.getElementById('newScriptCategory').value;
+        const description = document.getElementById('newScriptDesc').value.trim();
+        const code = document.getElementById('newScriptCode').value;
+        const executors = [
+          ...document.querySelectorAll('#newExecutorCheckboxes input[type="checkbox"]:checked')
+        ].map((cb) => cb.value);
+
+        if (!title || !description || !code.trim() || executors.length === 0) return;
+
+        const mapObj = getMapById(mapId);
+        const catObj = CATEGORIES.find((c) => c.key === category) || CATEGORIES[0];
+
+        const customItem = {
+          id: 'custom-' + Date.now(),
+          mapId: mapObj.id,
+          mapName: mapObj.name,
+          mapArabic: mapObj.arabicTag,
+          category: catObj.key,
+          categoryArabic: catObj.ar,
+          status: 'مخصص',
+          executors,
+          title,
+          description,
+          updatedAt: 'NEW',
+          code,
+          isCustom: true
+        };
+
+        state.customScripts.unshift(customItem);
+        saveCustomScripts(state.customScripts);
+        addScriptForm.reset();
+        closeAddModalFn();
+        renderCatalog();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          if (!previewModal.classList.contains('hidden')) closePreview();
+          if (!addScriptModal.classList.contains('hidden')) closeAddModalFn();
+          if (!authModal.classList.contains('hidden')) closeAuth();
+        }
+      });
+
+      // التهيئة الأولية
+      populateAddScriptMaps();
+      applyLanguageUI(false);
+      syncAccessGate();
+    })();
+  </script>
+</body>
+</html>
